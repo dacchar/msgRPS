@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { RpsServiceService } from '../rps-service.service';
+import {Leader} from '../leader';
+/*
 import {Leader} from './leader';
+
+ */
 
 @Component({
   selector: 'app-start-game',
@@ -30,4 +34,9 @@ export class StartGameComponent implements OnInit {
   setLeaderActiv(i: number) {
     this.rpsServiceService.setLeaderActiv(i);
   }
+
+  getLeaders(): Leader[] {
+    return this.rpsServiceService.getLeaders();
+  }
+
 }

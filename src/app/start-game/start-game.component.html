@@ -1,52 +1,52 @@
 <div class="container">
   <div class="jumbotron">
     <h1>MSG Schere-Stein-Papier Spiel</h1>
-    <p>Demonastation der Maschinen Leraning</p>
+    <p>Demonastration der Maschinen Learning</p>
   </div>
 
   <div class="row">
     <div class="col-md-4">
       <div>
         <button (click)="chooseImage(0)">
-          <img  alt="Angular Logo" src="./assets/lights.jpg" style="width:100%">
+          <img alt="Angular Logo" src="./assets/lights.jpg" style="width:100%">
         </button>
       </div>
       <div>Simeon</div>
       <div>
         <div *ngIf="getLeaderActiv(0)">
-          <img  alt="Angular Logo" width="100" src="./assets/29021449-stock-vector-three-dimensional-green-hook.jpg">
+          <img alt="Angular Logo" width="100" src="./assets/29021449-stock-vector-three-dimensional-green-hook.jpg">
         </div>
       </div>
     </div>
     <div class="col-md-4">
       <div>
         <button (click)="chooseImage(1)">
-          <img  alt="Angular Logo" src="./assets/nature.jpg" style="width:100%">
+          <img alt="Angular Logo" src="./assets/nature.jpg" style="width:100%">
         </button>
       </div>
       <div>Hendrik</div>
       <div>
         <div *ngIf="getLeaderActiv(1)">
-          <img  alt="Angular Logo" width="100" src="./assets/29021449-stock-vector-three-dimensional-green-hook.jpg">
+          <img alt="Angular Logo" width="100" src="./assets/29021449-stock-vector-three-dimensional-green-hook.jpg">
         </div>
       </div>
     </div>
     <div class="col-md-4">
       <div>
         <button (click)="chooseImage(2)">
-          <img  alt="Angular Logo" src="./assets/fjords.jpg" style="width:100%">
+          <img alt="Angular Logo" src="./assets/fjords.jpg" style="width:100%">
         </button>
       </div>
       <div>Max</div>
-        <div *ngIf="getLeaderActiv(2)">
-          <img  alt="Angular Logo" width="100" src="./assets/29021449-stock-vector-three-dimensional-green-hook.jpg">
-        </div>
+      <div *ngIf="getLeaderActiv(2)">
+        <img alt="Angular Logo" width="100" src="./assets/29021449-stock-vector-three-dimensional-green-hook.jpg">
+      </div>
     </div>
   </div>
 
   <div class="row">
     <div *ngIf="isLeaderChoosen">
-    <button mat-raised-button color="primary" [routerLink]="['/game']">Start Spiel</button>
-  </div>
+      <button mat-raised-button color="primary" [routerLink]="['/game']">Start Spiel</button>
+    </div>
 
-</div>
+  </div>

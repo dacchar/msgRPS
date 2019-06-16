@@ -6,6 +6,10 @@ import {Leader} from './leader';
 })
 export class RpsServiceService {
 
+  maxHits: number = 5;
+  humanHits: number[] = [];
+  aiHits: number[] = [];
+
   leaders: Leader[] = [
     new Leader( 1, 'Simeon', false),
     new Leader( 2, 'Hendrik', false),
