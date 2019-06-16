@@ -1,0 +1,79 @@
+
+<div class="jumbotron">
+  <h1>Sie spielen gegen MSG-AI!</h1>
+</div>
+
+
+
+
+<div class="row">
+  <div class="col-md-4">
+      <div>
+        <button (click)="addRock()">
+          <img  alt="Angular Logo" src="./assets/rock.jpg" style="width:60%">
+        </button>
+      </div>
+  </div>
+
+  <div class="col-md-4">
+      <div>
+        <button (click)="addPaper()">
+          <img  alt="Angular Logo" src="./assets/paper.png" style="width:40%">
+        </button>
+      </div>
+  </div>
+
+  <div class="col-md-4">
+      <div>
+        <button (click)="addScissors()">
+          <img  alt="Angular Logo" src="./assets/scissors.jpg" style="width:100%">
+        </button>
+      </div>
+   </div>
+</div>
+
+
+<div class="row">
+  <mat-card>
+    <mat-card-content>
+
+      <div>
+        <div>
+          You:
+          <div *ngIf="currentHit===0">
+            <button>
+              <img  alt="Angular Logo" src="./assets/rock.jpg" style="width:30%">
+            </button>
+          </div>
+
+          <div *ngIf="currentHit===1">
+            <button>
+              <img  alt="Angular Logo" src="./assets/paper.png" style="width:30%">
+            </button>
+          </div>
+
+          <div *ngIf="currentHit===2">
+            <button>
+              <img  alt="Angular Logo" src="./assets/scissors.jpg" style="width:30%">
+            </button>
+          </div>
+        </div>
+
+        <!--
+        <div>
+          <div *ngIf="aiBits[i]==='Rock'"><app-image-rock [imgWidth]="50" player="AI:"></app-image-rock></div>
+          <div *ngIf="aiBits[i]==='Scissors'"><app-image-scissors [imgWidth]="50" player="AI:"></app-image-scissors></div>
+          <div *ngIf="aiBits[i]==='Paper'"><app-image-paper [imgWidth]="50" player="AI:"></app-image-paper></div>
+        </div>
+        -->
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+
+</div>
+
+
+<div *ngIf="getLeaderActiv(2)">
+  aaaa
+</div>
