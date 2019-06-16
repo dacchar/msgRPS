@@ -6,8 +6,6 @@ import {Leader} from './leader';
 })
 export class RpsServiceService {
 
-  leaders: Leader[] = [];
-
   leaders: Leader[] = [
     new Leader( 1, 'Simeon', false),
     new Leader( 2, 'Hendrik', false),
@@ -16,10 +14,6 @@ export class RpsServiceService {
 
   constructor() {
   }
-
-  /*
-  leaders: boolean[] = [];
-   */
 
   init() {
   }
