@@ -59,7 +59,14 @@ export class GameComponent implements OnInit {
   }
 
   getBackgroundColor(): string {
-    return 'green';
+    if (this.currentHit === this.currentAiHit) {
+      return 'yellow';
+    } else if (this.currentHit < 2 && this.currentHit > this.currentAiHit) {
+      return 'green';
+    } else {
+      return 'red';
+    }
+
     /*
     if(this.results[i]==='WIN') {
       return 'green';
