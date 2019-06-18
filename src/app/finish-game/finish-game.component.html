@@ -1,7 +1,30 @@
 <div class="container">
 
-  <div class="row">
-    <button mat-raised-button color="primary" [routerLink]="['/']">Start Spiel</button>
+	<div class="jumbotron">
+
+		<div *ngIf="calculateGameResult() === 'WIN'">
+			<h1 class="text-success text-center">
+				You win!
+			</h1>
+		</div>
+
+		<div *ngIf="calculateGameResult() === 'LOSE'">
+			<h1 class="text-danger text-center">
+				You lost!
+			</h1>
+		</div>
+
+		<div *ngIf="calculateGameResult() === 'DRAW'">
+			<h1 class="text-warning text-center">
+				DRAW!
+			</h1>
+		</div>
+
+    <h2 class="text-info text-center">{{calculateHumanWins()}} : {{calculateHumanLost()}}</h2>
+	</div>
+
+	<div class="row">
+		<button mat-raised-button color="primary" (click)="nextPage()">Zum Spielbegin</button>
   </div>
 
 </div>

@@ -9,11 +9,12 @@ export class RpsServiceService {
   maxHits: number = 5;
   humanHits: number[] = [];
   aiHits: number[] = [];
+  results: string[] = [];
 
   leaders: Leader[] = [
     new Leader( 1, 'Simeon', false),
     new Leader( 2, 'Hendrik', false),
-    new Leader( 3, 'Max', false)
+    new Leader( 3, 'Helge', false)
   ];
 
   constructor() {
@@ -38,5 +39,51 @@ export class RpsServiceService {
 
   getLeaderActiv(i: number): boolean {
     return this.leaders[i].getActiv();
+  }
+
+  calculateHumanWins(): number {
+    return this.calculateHumanPoints('WIN');
+  }
+
+  calculateHumanLost(): number {
+    return this.calculateHumanPoints('LOSE');
+  }
+
+  calculateHumanPoints(what: string): number {
+    let count = 0;
+    for (let i = 0; i < this.results.length; i++) {
+      if (this.results[i] === what) {
+        count++;
+      }
+    }
+    return count;
+  }
+
+  calculateGameResult(): string {
+    let winHumanCount = 0;
+    let winAiCount = 0;
+
+    for (let i = 0; i < this.results.length; i++) {
+      if (this.results[i] === 'WIN') {
+        winHumanCount++;
+      } else if (this.results[i] === 'LOSE') {
+        winAiCount++;
+      }
+    }
+
+    if (winHumanCount > winAiCount) {
+      return 'WIN';
+    } else if (winHumanCount < winAiCount) {
+      return 'LOSE';
+    } else {
+      return 'DRAW';
+    }
+
+  }
+
+  reset() {
+    this.humanHits = [];
+    this.aiHits = [];
+    this.results = [];
   }
 }

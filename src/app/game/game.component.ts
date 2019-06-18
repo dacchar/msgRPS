@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RpsServiceService } from '../rps-service.service';
 import { Router } from '@angular/router';
+import { RpsServiceService } from '../rps-service.service';
 
 @Component({
   selector: 'app-game',
@@ -41,8 +41,11 @@ export class GameComponent implements OnInit {
   increaseHit() {
     this.hitIndex++;
     this.aiHit();
-    if ( this.hitIndex === this.getMaxHits() ) {
-      this.router.navigateByUrl( '/FinishGameComponent' );
+    this.saveResult();
+
+    // check if the game finish:
+    if (this.hitIndex === this.getMaxHits()) {
+      this.router.navigateByUrl('/FinishGameComponent');
     }
   }
 
@@ -58,10 +61,27 @@ export class GameComponent implements OnInit {
     this.rpsServiceService.aiHits.push(this.currentAiHit);
   }
 
-  getBackgroundColor(): string {
+  saveResult() {
+    this.rpsServiceService.results.push(this.getResult());
+  }
+
+  getResult(): string {
     if (this.currentHit === this.currentAiHit) {
+      return 'DRAW';
+    } else {
+      if (this.currentHit === 0 && this.currentAiHit === 2 || this.currentHit === 1 && this.currentAiHit === 0
+        || this.currentHit === 2 && this.currentAiHit === 1) {
+        return 'WIN';
+      } else {
+        return 'LOSE';
+      }
+    }
+  }
+
+  getBackgroundColor(): string {
+    if (this.getResult() === 'DRAW') {
       return 'yellow';
-    } else if (this.currentHit < 2 && this.currentHit > this.currentAiHit) {
+    } else if (this.getResult() === 'WIN') {
       return 'green';
     } else {
       return 'red';
@@ -79,4 +99,15 @@ export class GameComponent implements OnInit {
      */
   }
 
+  reset() {
+    this.currentHit = -1;
+    this.currentAiHit = -1;
+    this.hitIndex = 0;
+    this.rpsServiceService.reset();
+  }
+
+  nextPage() {
+    this.reset();
+    this.router.navigateByUrl('/StartGameComponent');
+  }
 }

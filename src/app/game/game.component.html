@@ -1,18 +1,22 @@
 <div class="container">
 
-  <div class="jumbotron">
-    <h1>Sie spielen gegen MSG-AI!</h1>
-    <p>
-      Gespielt {{hitIndex}} : {{getMaxHits()}}.
-    </p>
-  </div>
+	<div class="jumbotron">
+		<div class="text-center">
+			<h1>Sie spielen gegen MSG-AI!</h1>
+		</div>
+		<div class="text-center">
+			<h2>
+				Gespielt {{hitIndex}} : {{getMaxHits()}}.
+			</h2>
+		</div>
+	</div>
 
 
-  <div class="row">
-    <div class="col-md-4">
-      <div>
-        <button (click)="addRock()">
-          <img alt="Angular Logo" src="./assets/rock.jpg" style="width:60%">
+	<div class="row">
+		<div class="col-md-4">
+			<div>
+				<button (click)="addRock()">
+          <img alt="Rock Logo" src="./assets/rock.jpg" style="width:60%">
         </button>
       </div>
     </div>
@@ -20,7 +24,7 @@
     <div class="col-md-4">
       <div>
         <button (click)="addPaper()">
-          <img alt="Angular Logo" src="./assets/paper.png" style="width:40%">
+          <img alt="Paper Logo" src="./assets/paper.png" style="width:40%">
         </button>
       </div>
     </div>
@@ -28,77 +32,78 @@
     <div class="col-md-4">
       <div>
         <button (click)="addScissors()">
-          <img alt="Angular Logo" src="./assets/scissors.jpg" style="width:100%">
+          <img alt="Scissor Logo" src="./assets/scissors.jpg" style="width:100%">
         </button>
       </div>
     </div>
   </div>
 
 
-  <div class="row">
-    <mat-card [style.background]="getBackgroundColor()">
-      <mat-card-content>
+  <div class="row mt-5 justify-content-center">
+    <div *ngIf="currentHit>=0">
+      <div class="text-center">
+      <mat-card [style.background]="getBackgroundColor()">
+        <mat-card-content>
 
-        <div *ngIf="currentHit>=0">
-          <div>
-            You:
-            <div *ngIf="currentHit===0">
-              <button>
-                <img alt="Rock" src="./assets/rock.jpg" style="width:30%">
-              </button>
+            <div>
+              You:
+              <div *ngIf="currentHit===0">
+                <button>
+                  <img alt="Rock" src="./assets/rock.jpg" style="width:30%">
+                </button>
+              </div>
+
+              <div *ngIf="currentHit===1">
+                <button>
+                  <img alt="Paper" src="./assets/paper.png" style="width:30%">
+                </button>
+              </div>
+
+              <div *ngIf="currentHit===2">
+                <button>
+                  <img alt="Scissors" src="./assets/scissors.jpg" style="width:30%">
+                </button>
+              </div>
             </div>
 
-            <div *ngIf="currentHit===1">
-              <button>
-                <img alt="Paper" src="./assets/paper.png" style="width:30%">
-              </button>
+            <div>
+              AI:
+              <div *ngIf="currentAiHit===0">
+                <button>
+                  <img alt="Rock" src="./assets/rock.jpg" style="width:30%">
+                </button>
+              </div>
+
+              <div *ngIf="currentAiHit===1">
+                <button>
+                  <img alt="Paper" src="./assets/paper.png" style="width:30%">
+                </button>
+              </div>
+
+              <div *ngIf="currentAiHit===2">
+                <button>
+                  <img alt="Scissors" src="./assets/scissors.jpg" style="width:30%">
+                </button>
+              </div>
             </div>
 
-            <div *ngIf="currentHit===2">
-              <button>
-                <img alt="Scissors" src="./assets/scissors.jpg" style="width:30%">
-              </button>
+            <!--
+            <div>
+              <div *ngIf="aiBits[i]==='Rock'"><app-image-rock [imgWidth]="50" player="AI:"></app-image-rock></div>
+              <div *ngIf="aiBits[i]==='Scissors'"><app-image-scissors [imgWidth]="50" player="AI:"></app-image-scissors></div>
+              <div *ngIf="aiBits[i]==='Paper'"><app-image-paper [imgWidth]="50" player="AI:"></app-image-paper></div>
             </div>
-          </div>
-
-          <div>
-            AI:
-            <div *ngIf="currentAiHit===0">
-              <button>
-                <img alt="Rock" src="./assets/rock.jpg" style="width:30%">
-              </button>
-            </div>
-
-            <div *ngIf="currentAiHit===1">
-              <button>
-                <img alt="Paper" src="./assets/paper.png" style="width:30%">
-              </button>
-            </div>
-
-            <div *ngIf="currentAiHit===2">
-              <button>
-                <img alt="Scissors" src="./assets/scissors.jpg" style="width:30%">
-              </button>
-            </div>
-          </div>
-
-          <!--
-          <div>
-            <div *ngIf="aiBits[i]==='Rock'"><app-image-rock [imgWidth]="50" player="AI:"></app-image-rock></div>
-            <div *ngIf="aiBits[i]==='Scissors'"><app-image-scissors [imgWidth]="50" player="AI:"></app-image-scissors></div>
-            <div *ngIf="aiBits[i]==='Paper'"><app-image-paper [imgWidth]="50" player="AI:"></app-image-paper></div>
-          </div>
-          -->
-        </div>
-
-      </mat-card-content>
-    </mat-card>
+            -->
+        </mat-card-content>
+      </mat-card>
+      </div>
+    </div>
 
   </div>
 
 
-  <div class="row">
-    <button mat-raised-button color="primary" [routerLink]="['/']">Start Spiel</button>
+  <div class="row mt-5">
+    <button mat-raised-button color="primary" (click)="nextPage()">Zum Spielbegin</button>
   </div>
 
 </div>
