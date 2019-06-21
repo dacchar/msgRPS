@@ -46,7 +46,7 @@
 
   <div class="row">
     <div *ngIf="isLeaderChoosen">
-      <button mat-raised-button color="primary" [routerLink]="['/game']">Start Spiel</button>
+      <button mat-raised-button color="primary" (click)="startGame()">Start Spiel</button>
     </div>
 
   </div>

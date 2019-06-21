@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { RpsServiceService } from '../rps-service.service';
 import {Leader} from '../leader';
 
@@ -11,7 +12,7 @@ export class StartGameComponent implements OnInit {
 
   isLeaderChoosen: boolean;
 
-  constructor(private rpsServiceService: RpsServiceService) { }
+  constructor(private rpsServiceService: RpsServiceService, private router: Router) { }
 
   ngOnInit() {
     this.rpsServiceService.init();
@@ -33,6 +34,10 @@ export class StartGameComponent implements OnInit {
 
   getLeaders(): Leader[] {
     return this.rpsServiceService.getLeaders();
+  }
+
+  startGame() {
+    this.router.navigateByUrl('/game');
   }
 
 }
