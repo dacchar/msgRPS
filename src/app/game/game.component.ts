@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RpsServiceService } from '../rps-service.service';
+import { MLServiceService } from '../mlservice.service';
 
 @Component({
   selector: 'app-game',
@@ -13,7 +14,7 @@ export class GameComponent implements OnInit {
   currentAiHit: number = -1;
   hitIndex: number = 0;
 
-  constructor(private rpsServiceService: RpsServiceService, private router: Router) { }
+  constructor(private rpsServiceService: RpsServiceService, private router: Router, private mlService: MLServiceService) { }
 
   ngOnInit() {
   }
@@ -50,7 +51,7 @@ export class GameComponent implements OnInit {
   }
 
   humanHit(hit: number) {
-    console.log(hit);
+    this.sendHitToML(hit);
     this.currentHit = hit;
     this.rpsServiceService.humanHits.push(hit);
     this.increaseHit();
@@ -107,7 +108,31 @@ export class GameComponent implements OnInit {
   }
 
   nextPage() {
+    this.sendToML()
     this.reset();
     this.router.navigateByUrl('/StartGameComponent');
   }
+
+  sendToML(): void {
+    this.mlService.send(
+      {
+        leaderId: this.rpsServiceService.activeLeaderIndex,
+        leaderName: this.rpsServiceService.leaders[this.rpsServiceService.activeLeaderIndex].name,
+        status: 'end',
+        hit: this.currentHit
+      }
+    );
+  }
+
+  sendHitToML(hit: number): void {
+    this.mlService.send(
+      {
+        leaderId: this.rpsServiceService.activeLeaderIndex,
+        leaderName: this.rpsServiceService.leaders[this.rpsServiceService.activeLeaderIndex].name,
+        status: 'playing',
+        hit: hit
+      }
+    );
+  }
+
 }

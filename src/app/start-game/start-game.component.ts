@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RpsServiceService } from '../rps-service.service';
+import { MLServiceService } from '../mlservice.service';
 import {Leader} from '../leader';
 
 @Component({
@@ -12,13 +13,20 @@ export class StartGameComponent implements OnInit {
 
   isLeaderChoosen: boolean;
 
-  constructor(private rpsServiceService: RpsServiceService, private router: Router) { }
+  /*
+  leader = new Leader(1, 'Simeon', true);
+  errorMessage: string;
+
+   */
+
+  constructor(private rpsServiceService: RpsServiceService, private router: Router, private mlService: MLServiceService) { }
 
   ngOnInit() {
     this.rpsServiceService.init();
   }
 
   chooseImage(i: number) {
+    this.rpsServiceService.activeLeaderIndex = i;
     this.rpsServiceService.resetLeaders();
     this.rpsServiceService.getLeaders()[i].activ = true;
     this.isLeaderChoosen = true;
@@ -37,7 +45,30 @@ export class StartGameComponent implements OnInit {
   }
 
   startGame() {
+    this.sendToML();
     this.router.navigateByUrl('/game');
   }
 
+  sendToML(): void {
+    this.mlService.send(
+      {
+        leaderId:  this.rpsServiceService.activeLeaderIndex,
+        leaderName: this.rpsServiceService.leaders[this.rpsServiceService.activeLeaderIndex].name,
+        status: 'begin',
+        hit: -1
+      }
+    );
+
+    /*
+    this.mlService.startGame();
+     */
+
+    /*
+    this.mlService.startGame(this.leader)
+      .subscribe( leader => {
+        },
+        error => this.errorMessage = <any> error);
+
+     */
+  }
 }
