@@ -57,8 +57,31 @@ export class GameComponent implements OnInit {
     this.increaseHit();
   }
 
+  /*
+  async getAIHit2(): number {
+    let createdEmployee = await this.mlService.getAIHit2();
+    console.log('Created Employee: ' + createdEmployee.hit);
+
+    var res = createdEmployee.hit;
+
+    return res;
+  }
+
+   */
+
   aiHit() {
+    /*
+    let sss = this.mlService.getAIHit();
+    var sss2 = this.mlService.hit;
+
+    this.currentAiHit = this.getAIHit2();
+
+     */
+
+
     this.currentAiHit = 1;
+
+
     this.rpsServiceService.aiHits.push(this.currentAiHit);
   }
 

@@ -1,12 +1,22 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+/*
+import { Observable } from 'rxjs/Observable';
+
+ */
 import { HttpHeaders } from '@angular/common/http';
+
+
 /*
 import { Headers, RequestOptions } from '@angular/common/http';
 import { Http, Response } from '@angular/common/http';
 */
 
+/*
 import { Observable } from 'rxjs';
+
+ */
+
 import {Leader} from '../leader';
 
 @Injectable({
@@ -15,6 +25,8 @@ import {Leader} from '../leader';
 export class MLServiceService {
 
   url = 'http://127.0.0.1:5000/sendStatus';
+  urlGetAIHit = 'http://127.0.0.1:5000/getAIHit';
+  hit = -1;
 
   /*
   const httpOptions = {
@@ -28,14 +40,52 @@ export class MLServiceService {
 
   constructor(private httpClient: HttpClient) { }
 
+  async getAIHit2() {
+    return await this.httpClient.get(this.urlGetAIHit).toPromise();
+  }
+
+  async getAsyncData() {
+    /*
+    var asyncResult = await this.httpClient.get(this.urlGetAIHit).toPromise();
+    console.log('No issues, I will wait until promise is resolved..');
+    console.log('Result:');
+    console.log(asyncResult.hit);
+    this.hit = asyncResult.hit;
+
+     */
+  }
+
   send(leader: Leader) {
     this.httpClient.put( this.url, leader )
       .subscribe(
         data  => {
-          console.log("PUT Request is successful ", data);
+          console.log('PUT Request is successful.', data);
         },
         error  => {
-          console.log("Error", error);
+          console.log('Error', error);
+        }
+      );
+  }
+
+  /*
+  public getItem<T>(): Promise<T> {
+    return this.httpClient.get<T>(this.urlGetAIHit);
+  }
+
+  getAIHit(): Observable<Object> {
+    return this.httpClient.get( this.urlGetAIHit );
+  }
+
+   */
+
+  getAIHit() {
+    this.httpClient.get( this.urlGetAIHit )
+      .subscribe(
+        data  => {
+          console.log('GET Request is successful.', data);
+        },
+        error  => {
+          console.log('Error', error);
         }
       );
   }
