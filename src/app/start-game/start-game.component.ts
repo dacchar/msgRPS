@@ -59,6 +59,7 @@ export class StartGameComponent implements OnInit {
       }
     );
 
+
     /*
     this.mlService.startGame();
      */
