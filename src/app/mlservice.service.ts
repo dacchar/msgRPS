@@ -1,10 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
+
 /*
 import { Observable } from 'rxjs/Observable';
 
  */
 import { HttpHeaders } from '@angular/common/http';
+import {Leader} from './leader';
 
 
 /*
@@ -17,7 +22,23 @@ import { Observable } from 'rxjs';
 
  */
 
+/*
 import {Leader} from '../leader';
+ */
+
+
+export interface GameStatus {
+  leaderId: number;
+  leaderName: string;
+  hit: number;
+  status: string;
+}
+
+
+export interface Resp {
+  status: string;
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -55,8 +76,12 @@ export class MLServiceService {
      */
   }
 
+  send2(gameStatus: GameStatus): Observable<GameStatus> {
+    return this.httpClient.post<GameStatus>(this.url, gameStatus);
+  }
+
   send(leader: Leader) {
-    this.httpClient.put( this.url, leader )
+    this.httpClient.put( this.url, Leader )
       .subscribe(
         data  => {
           console.log('PUT Request is successful.', data);

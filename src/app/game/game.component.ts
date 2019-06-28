@@ -137,6 +137,23 @@ export class GameComponent implements OnInit {
   }
 
   sendToML(): void {
+    this.mlService.send2(
+      {
+        leaderId: this.rpsServiceService.activeLeaderIndex,
+        leaderName: this.rpsServiceService.leaders[this.rpsServiceService.activeLeaderIndex].name,
+        status: 'end',
+        hit: this.currentHit
+      }
+    ).subscribe(
+      data => {
+        console.log(data);
+        /*
+        this.status = status;
+         */
+      }
+    );
+
+    /*
     this.mlService.send(
       {
         leaderId: this.rpsServiceService.activeLeaderIndex,
@@ -145,9 +162,27 @@ export class GameComponent implements OnInit {
         hit: this.currentHit
       }
     );
+     */
   }
 
   sendHitToML(hit: number): void {
+    this.mlService.send2(
+      {
+        leaderId: this.rpsServiceService.activeLeaderIndex,
+        leaderName: this.rpsServiceService.leaders[this.rpsServiceService.activeLeaderIndex].name,
+        status: 'playing',
+        hit: hit
+      }
+    ).subscribe(
+      data => {
+        console.log(data);
+        /*
+        this.status = status;
+         */
+      }
+    );
+
+    /*
     this.mlService.send(
       {
         leaderId: this.rpsServiceService.activeLeaderIndex,
@@ -156,6 +191,8 @@ export class GameComponent implements OnInit {
         hit: hit
       }
     );
+
+     */
   }
 
 }

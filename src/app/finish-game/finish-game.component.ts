@@ -39,6 +39,25 @@ export class FinishGameComponent implements OnInit {
   }
 
   sendToML(): void {
+
+    this.mlService.send2(
+      {
+        leaderId: this.rpsServiceService.activeLeaderIndex,
+        leaderName: this.rpsServiceService.leaders[this.rpsServiceService.activeLeaderIndex].name,
+        status: 'end',
+        hit: -1
+      }
+    ).subscribe(
+      data => {
+        console.log(data);
+        /*
+        this.status = status;
+         */
+      }
+    );
+
+
+    /*
     this.mlService.send(
       {
         leaderId: this.rpsServiceService.activeLeaderIndex,
@@ -47,5 +66,6 @@ export class FinishGameComponent implements OnInit {
         hit: -1
       }
     );
+     */
   }
 }

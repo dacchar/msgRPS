@@ -13,6 +13,8 @@ export class StartGameComponent implements OnInit {
 
   isLeaderChoosen: boolean;
 
+  status: string;
+
   /*
   leader = new Leader(1, 'Simeon', true);
   errorMessage: string;
@@ -50,6 +52,24 @@ export class StartGameComponent implements OnInit {
   }
 
   sendToML(): void {
+    this.mlService.send2(
+      {
+        leaderId: this.rpsServiceService.activeLeaderIndex,
+        leaderName: this.rpsServiceService.leaders[this.rpsServiceService.activeLeaderIndex].name,
+        status: 'begin',
+        hit: -1
+      }
+    ).subscribe(
+      data => {
+        console.log(data);
+        /*
+        this.status = status;
+         */
+      }
+    );
+
+
+    /*
     this.mlService.send(
       {
         leaderId:  this.rpsServiceService.activeLeaderIndex,
@@ -58,6 +78,7 @@ export class StartGameComponent implements OnInit {
         hit: -1
       }
     );
+     */
 
 
     /*
