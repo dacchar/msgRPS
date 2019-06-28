@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RpsServiceService } from '../rps-service.service';
 import { MLServiceService } from '../mlservice.service';
+import { ImageServiceService } from '../image-service.service';
 import {Leader} from '../leader';
 
 @Component({
@@ -13,6 +14,10 @@ export class StartGameComponent implements OnInit {
 
   isLeaderChoosen: boolean;
 
+  okImage: string;
+  anonymImage: string;
+  msgLogo: string;
+
   status: string;
 
   /*
@@ -21,10 +26,18 @@ export class StartGameComponent implements OnInit {
 
    */
 
-  constructor(private rpsServiceService: RpsServiceService, private router: Router, private mlService: MLServiceService) { }
+  constructor(
+    private rpsServiceService: RpsServiceService,
+    private router: Router,
+    private mlService: MLServiceService,
+    private imageServiceService: ImageServiceService) {
+  }
 
   ngOnInit() {
     this.rpsServiceService.init();
+    this.okImage = this.imageServiceService.okImage;
+    this.anonymImage = this.imageServiceService.anonymImage;
+    this.msgLogo = this.imageServiceService.msgLogo;
   }
 
   chooseImage(i: number) {

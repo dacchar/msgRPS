@@ -6,7 +6,7 @@
 		</div>
 		<div class="text-center">
 			<h2>
-				Gespielt {{hitIndex}} Spiel aus {{getMaxHits()}}.
+				Gespielt {{hitIndex}} Spielen aus {{getMaxHits()}}.
 			</h2>
 		</div>
 	</div>
@@ -16,7 +16,7 @@
 		<div class="col-md-4">
 			<div>
 				<button (click)="addRock()">
-          <img alt="Rock Logo" src="./assets/rock.jpg" style="width:60%">
+          <img alt="Rock Logo" src={{rockImage}} style="width:100%">
         </button>
       </div>
     </div>
@@ -24,7 +24,7 @@
     <div class="col-md-4">
       <div>
         <button (click)="addPaper()">
-          <img alt="Paper Logo" src="./assets/paper.png" style="width:40%">
+          <img alt="Paper Logo" src={{paperImage}} style="width:100%">
         </button>
       </div>
     </div>
@@ -32,7 +32,7 @@
     <div class="col-md-4">
       <div>
         <button (click)="addScissors()">
-          <img alt="Scissor Logo" src="./assets/scissors.jpg" style="width:100%">
+          <img alt="Scissor Logo" src={{scissorsImage}} style="width:100%">
         </button>
       </div>
     </div>
@@ -49,19 +49,19 @@
               You:
               <div *ngIf="currentHit===0">
                 <button>
-                  <img alt="Rock" src="./assets/rock.jpg" style="width:30%">
+                  <img alt="Rock" src={{rockImage}} style="width:50%">
                 </button>
               </div>
 
               <div *ngIf="currentHit===1">
                 <button>
-                  <img alt="Paper" src="./assets/paper.png" style="width:30%">
+                  <img alt="Paper" src={{paperImage}} style="width:50%">
                 </button>
               </div>
 
               <div *ngIf="currentHit===2">
                 <button>
-                  <img alt="Scissors" src="./assets/scissors.jpg" style="width:30%">
+                  <img alt="Scissors" src={{scissorsImage}} style="width:50%">
                 </button>
               </div>
             </div>
@@ -70,19 +70,19 @@
               AI:
               <div *ngIf="currentAiHit===0">
                 <button>
-                  <img alt="Rock" src="./assets/rock.jpg" style="width:30%">
+                  <img alt="Rock" src={{rockImage}} style="width:50%">
                 </button>
               </div>
 
               <div *ngIf="currentAiHit===1">
                 <button>
-                  <img alt="Paper" src="./assets/paper.png" style="width:30%">
+                  <img alt="Paper" src={{paperImage}} style="width:50%">
                 </button>
               </div>
 
               <div *ngIf="currentAiHit===2">
                 <button>
-                  <img alt="Scissors" src="./assets/scissors.jpg" style="width:30%">
+                  <img alt="Scissors" src={{scissorsImage}} style="width:50%">
                 </button>
               </div>
             </div>
@@ -95,10 +95,19 @@
             </div>
             -->
         </mat-card-content>
+
+        <mat-card-footer>
+          <h2>{{getResultText()}}</h2>
+        </mat-card-footer>
+
       </mat-card>
       </div>
     </div>
 
+  </div>
+
+  <div class="row mt-5">
+    <mat-progress-bar mode="determinate" value="{{progressBarValue}}"></mat-progress-bar>
   </div>
 
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RpsServiceService } from '../rps-service.service';
 import { MLServiceService } from '../mlservice.service';
+import { ImageServiceService } from '../image-service.service';
 
 @Component({
   selector: 'app-game',
@@ -14,9 +15,29 @@ export class GameComponent implements OnInit {
   currentAiHit: number = -1;
   hitIndex: number = 0;
 
-  constructor(private rpsServiceService: RpsServiceService, private router: Router, private mlService: MLServiceService) { }
+  rockImage: string;
+  paperImage: string;
+  scissorsImage: string;
+  progressBarValue: number;
+
+  constructor(
+    private rpsServiceService: RpsServiceService,
+    private router: Router, private mlService: MLServiceService,
+    private imageServiceService: ImageServiceService){
+
+  }
 
   ngOnInit() {
+    this.rockImage = this.imageServiceService.rockImage;
+    this.paperImage = this.imageServiceService.paperImage;
+    this.scissorsImage = this.imageServiceService.scissorsImage;
+    this.startTimer();
+  }
+
+  startTimer() {
+    this.progressBarValue = 0;
+    let timerId = setInterval(() => this.progressBarValue += 5, 250);
+    setTimeout(() => { clearInterval(timerId);  }, 5000);
   }
 
   getLeaderActiv(i: number): boolean {
@@ -51,6 +72,7 @@ export class GameComponent implements OnInit {
   }
 
   humanHit(hit: number) {
+    this.startTimer();
     this.sendHitToML(hit);
     this.currentHit = hit;
     this.rpsServiceService.humanHits.push(hit);
@@ -193,6 +215,16 @@ export class GameComponent implements OnInit {
     );
 
      */
+  }
+
+  getResultText(): string {
+    if (this.getResult() === 'DRAW') {
+      return 'Draw';
+    } else if (this.getResult() === 'WIN') {
+      return 'You win!';
+    } else {
+      return 'You lost.';
+    }
   }
 
 }

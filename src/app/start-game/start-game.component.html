@@ -1,4 +1,11 @@
 <div class="container">
+
+  <div >
+    <img alt="MSG Logo" src="{{msgLogo}}" style="width:100%">
+  </div>
+
+  <br>
+
   <div class="jumbotron">
     <h1 class="text-center">MSG Schere-Stein-Papier Spiel</h1>
     <h4 class="text-center">Demonstration der Maschinen Learning</h4>
@@ -8,38 +15,38 @@
     <div class="col-md-4">
       <div>
         <button (click)="chooseImage(0)">
-          <img alt="Simeon Logo" src="./assets/lights.jpg" style="width:100%">
+          <img alt="Simeon Logo" src="{{anonymImage}}" style="width:50%">
         </button>
       </div>
-      <div><h4>Simeon</h4></div>
+      <div>Simeon</div>
       <div>
         <div *ngIf="getLeaderActiv(0)">
-          <img alt="Ausgewält Logo" width="100" src="./assets/29021449-stock-vector-three-dimensional-green-hook.jpg">
+          <img alt="Ausgewält Logo" width="100" src="{{okImage}}">
         </div>
       </div>
     </div>
     <div class="col-md-4">
       <div>
         <button (click)="chooseImage(1)">
-          <img alt="Hendrik Logo" src="./assets/nature.jpg" style="width:100%">
+          <img alt="Hendrik Logo" src="{{anonymImage}}" style="width:50%">
         </button>
       </div>
-      <div><h4>Hendrik</h4></div>
+      <div>Hendrik</div>
       <div>
         <div *ngIf="getLeaderActiv(1)">
-          <img alt="Ausgewält Logo" width="100" src="./assets/29021449-stock-vector-three-dimensional-green-hook.jpg">
+          <img alt="Ausgewält Logo" width="100" src="{{okImage}}">
         </div>
       </div>
     </div>
     <div class="col-md-4">
       <div>
         <button (click)="chooseImage(2)">
-          <img alt="Helge Logo" src="./assets/fjords.jpg" style="width:100%">
+          <img alt="Helge Logo" src="{{anonymImage}}" style="width:50%">
         </button>
       </div>
-      <div><h4>Helge</h4></div>
+      <div>Helge</div>
       <div *ngIf="getLeaderActiv(2)">
-        <img alt="Ausgewält Logo" width="100" src="./assets/29021449-stock-vector-three-dimensional-green-hook.jpg">
+        <img alt="Ausgewält Logo" width="100" src="{{okImage}}">
       </div>
     </div>
   </div>
