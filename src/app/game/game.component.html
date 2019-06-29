@@ -15,7 +15,7 @@
 	<div class="row">
 		<div class="col-md-4">
 			<div>
-				<button (click)="addRock()">
+				<button (click)="clickRock()">
           <img alt="Rock Logo" src={{rockImage}} style="width:100%">
         </button>
       </div>
@@ -23,7 +23,7 @@
 
     <div class="col-md-4">
       <div>
-        <button (click)="addPaper()">
+        <button (click)="clickPaper()">
           <img alt="Paper Logo" src={{paperImage}} style="width:100%">
         </button>
       </div>
@@ -31,7 +31,7 @@
 
     <div class="col-md-4">
       <div>
-        <button (click)="addScissors()">
+        <button (click)="clickScissors()">
           <img alt="Scissor Logo" src={{scissorsImage}} style="width:100%">
         </button>
       </div>
@@ -40,13 +40,22 @@
 
 
   <div class="row mt-5 justify-content-center">
+    <!--
     <div *ngIf="currentHit>=0">
+    -->
+    <div>
       <div class="text-center">
       <mat-card [style.background]="getBackgroundColor()">
         <mat-card-content>
-
             <div>
               You:
+              <div>
+                <button>
+                  <img alt="Your hit" src={{currentHumanHitImage}} style="width:50%">
+                </button>
+              </div>
+
+              <!--
               <div *ngIf="currentHit===0">
                 <button>
                   <img alt="Rock" src={{rockImage}} style="width:50%">
@@ -64,10 +73,18 @@
                   <img alt="Scissors" src={{scissorsImage}} style="width:50%">
                 </button>
               </div>
+              -->
             </div>
 
             <div>
               AI:
+              <div>
+                <button>
+                  <img alt="AI hit" src={{currentAiHitImage}} style="width:50%">
+                </button>
+              </div>
+
+              <!--
               <div *ngIf="currentAiHit===0">
                 <button>
                   <img alt="Rock" src={{rockImage}} style="width:50%">
@@ -85,6 +102,7 @@
                   <img alt="Scissors" src={{scissorsImage}} style="width:50%">
                 </button>
               </div>
+              -->
             </div>
 
             <!--

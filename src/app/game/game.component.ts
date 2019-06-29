@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { RpsServiceService } from '../rps-service.service';
-import { MLServiceService } from '../mlservice.service';
-import { ImageServiceService } from '../image-service.service';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {RpsServiceService} from '../rps-service.service';
+import {MLServiceService} from '../mlservice.service';
+import {ImageServiceService} from '../image-service.service';
 
 @Component({
   selector: 'app-game',
@@ -18,12 +18,17 @@ export class GameComponent implements OnInit {
   rockImage: string;
   paperImage: string;
   scissorsImage: string;
+  questionImage: string;
+
+  currentHumanHitImage: any;
+  currentAiHitImage: any;
+
   progressBarValue: number;
 
   constructor(
     private rpsServiceService: RpsServiceService,
     private router: Router, private mlService: MLServiceService,
-    private imageServiceService: ImageServiceService){
+    private imageServiceService: ImageServiceService) {
 
   }
 
@@ -31,13 +36,18 @@ export class GameComponent implements OnInit {
     this.rockImage = this.imageServiceService.rockImage;
     this.paperImage = this.imageServiceService.paperImage;
     this.scissorsImage = this.imageServiceService.scissorsImage;
+    this.questionImage = this.imageServiceService.questionImage;
+    this.currentHumanHitImage = this.imageServiceService.questionImage;
+    this.setAIImage();
     this.startTimer();
   }
 
   startTimer() {
     this.progressBarValue = 0;
-    let timerId = setInterval(() => this.progressBarValue += 5, 250);
-    setTimeout(() => { clearInterval(timerId);  }, 5000);
+    const timerId = setInterval(() => this.progressBarValue += 5, 250);
+    setTimeout(() => {
+      clearInterval(timerId);
+    }, 5000);
   }
 
   getLeaderActiv(i: number): boolean {
@@ -48,18 +58,22 @@ export class GameComponent implements OnInit {
     return this.rpsServiceService.maxHits;
   }
 
-  addRock() {
+  clickRock() {
+    this.currentHumanHitImage = this.imageServiceService.rockImage;
     this.humanHit(0);
   }
 
-  addPaper() {
+  clickPaper() {
+    this.currentHumanHitImage = this.imageServiceService.paperImage;
     this.humanHit(1);
   }
 
-  addScissors() {
+  clickScissors() {
+    this.currentHumanHitImage = this.imageServiceService.scissorsImage;
     this.humanHit(2);
   }
 
+  /*
   increaseHit() {
     this.hitIndex++;
     this.aiHit();
@@ -70,13 +84,27 @@ export class GameComponent implements OnInit {
       this.router.navigateByUrl('/FinishGameComponent');
     }
   }
+   */
 
   humanHit(hit: number) {
-    this.startTimer();
-    this.sendHitToML(hit);
+    this.hitIndex++;
     this.currentHit = hit;
     this.rpsServiceService.humanHits.push(hit);
-    this.increaseHit();
+    this.currentAiHitImage = this.imageServiceService.questionImage;
+    this.sendHitToML(hit);
+    this.startTimer();
+
+
+    // this.increaseHit();
+
+    /*
+    this.saveResult();
+
+    // check if the game finish:
+    if (this.hitIndex === this.getMaxHits()) {
+      this.router.navigateByUrl('/FinishGameComponent');
+    }
+     */
   }
 
   /*
@@ -112,6 +140,10 @@ export class GameComponent implements OnInit {
   }
 
   getResult(): string {
+    if (this.currentHit === -1 || this.currentAiHit === -1) {
+      return '';
+    }
+
     if (this.currentHit === this.currentAiHit) {
       return 'DRAW';
     } else {
@@ -129,8 +161,10 @@ export class GameComponent implements OnInit {
       return 'yellow';
     } else if (this.getResult() === 'WIN') {
       return 'green';
-    } else {
+    } else if (this.getResult() === 'LOSE') {
       return 'red';
+    } else {
+      return '';
     }
 
     /*
@@ -153,7 +187,7 @@ export class GameComponent implements OnInit {
   }
 
   nextPage() {
-    this.sendToML()
+    this.sendToML();
     this.reset();
     this.router.navigateByUrl('/StartGameComponent');
   }
@@ -187,13 +221,25 @@ export class GameComponent implements OnInit {
      */
   }
 
-  sendHitToML(hit: number): void {
+  setAIImage() {
+    if (this.currentAiHit === 0) {
+      this.currentAiHitImage = this.imageServiceService.rockImage;
+    } else if (this.currentAiHit === 1) {
+      this.currentAiHitImage = this.imageServiceService.paperImage;
+    } else if (this.currentAiHit === 2) {
+      this.currentAiHitImage = this.imageServiceService.scissorsImage;
+    } else {
+      this.currentAiHitImage = this.imageServiceService.questionImage;
+    }
+  }
+
+  sendHitToML(pHit: number): void {
     this.mlService.send2(
       {
         leaderId: this.rpsServiceService.activeLeaderIndex,
         leaderName: this.rpsServiceService.leaders[this.rpsServiceService.activeLeaderIndex].name,
         status: 'playing',
-        hit: hit
+        hit: pHit
       }
     ).subscribe(
       data => {
@@ -201,8 +247,19 @@ export class GameComponent implements OnInit {
         /*
         this.status = status;
          */
+        this.currentAiHit = data.hit;
+        console.log('currentAiHit: ' + data.hit);
+
+        this.setAIImage();
+        this.saveResult();
+
+        // check if the game finish:
+        if (this.hitIndex === this.getMaxHits()) {
+          this.router.navigateByUrl('/FinishGameComponent');
+        }
       }
     );
+
 
     /*
     this.mlService.send(
@@ -222,8 +279,10 @@ export class GameComponent implements OnInit {
       return 'Draw';
     } else if (this.getResult() === 'WIN') {
       return 'You win!';
-    } else {
+    } else if (this.getResult() === 'LOSE') {
       return 'You lost.';
+    } else {
+      return '';
     }
   }
 
