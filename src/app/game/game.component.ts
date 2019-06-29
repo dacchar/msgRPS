@@ -11,9 +11,9 @@ import {ImageServiceService} from '../image-service.service';
 })
 export class GameComponent implements OnInit {
 
-  currentHit: number = -1;
-  currentAiHit: number = -1;
-  hitIndex: number = 0;
+  currentHit = -1;
+  currentAiHit = -1;
+  hitIndex = 0;
 
   rockImage: string;
   paperImage: string;
