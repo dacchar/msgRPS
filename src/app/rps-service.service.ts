@@ -1,17 +1,23 @@
 import { Injectable } from '@angular/core';
 import {Leader} from './leader';
+// import {ConfigService} from '../config.service';
+import {Config, ConfigService} from './config.service';
+
+// import { MLServiceService } from '../mlservice.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RpsServiceService {
 
-  maxHits: number = 5;
+  maxHits = 5;
   humanHits: number[] = [];
   aiHits: number[] = [];
   results: string[] = [];
 
   activeLeaderIndex: number;
+
+  config: Config;
 
   leaders: Leader[] = [
     new Leader( 1, 'Simeon', false),
@@ -19,10 +25,18 @@ export class RpsServiceService {
     new Leader( 3, 'Helge', false)
   ];
 
-  constructor() {
+  constructor(private configService: ConfigService) {
+
   }
 
   init() {
+    //this.maxHits = this.configService.gameLength;
+  }
+
+  showConfig() {
+    this.configService.getConfig()
+    // clone the data object, using its known Config shape
+      .subscribe((data: Config) => this.config = { ...data });
   }
 
   getLeaders(): Leader[] {
