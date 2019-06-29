@@ -74,11 +74,12 @@ export class StartGameComponent implements OnInit {
       }
     ).subscribe(
       data => {
-        console.log(data);
-        /*
-        this.status = status;
-         */
-      }
+            console.log(data);
+          },
+      error => {
+              console.log('Observer got an error: ', error);
+              this.router.navigateByUrl('/error');
+          }
     );
 
 

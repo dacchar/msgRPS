@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { StartGameComponent } from './start-game/start-game.component';
 import { GameComponent } from './game/game.component';
 import { FinishGameComponent } from './finish-game/finish-game.component';
+import { ErrorGameComponent } from './error-game/error-game.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { FinishGameComponent } from './finish-game/finish-game.component';
     StartGameComponent,
     GameComponent,
     FinishGameComponent,
+    ErrorGameComponent,
   ],
   imports: [
     BrowserModule,
