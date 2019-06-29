@@ -20,8 +20,8 @@ export class GameComponent implements OnInit {
   scissorsImage: string;
   questionImage: string;
 
-  currentHumanHitImage: any;
-  currentAiHitImage: any;
+  currentHumanHitImage: string;
+  currentAiHitImage: string;
 
   progressBarValue: number;
 
