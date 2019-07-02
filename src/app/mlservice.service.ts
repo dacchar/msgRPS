@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+// import { catchError, retry } from 'rxjs/operators';
+
+import config from '../assets/config.json';
 
 /*
 import { Observable } from 'rxjs/Observable';
@@ -45,7 +47,7 @@ export interface Resp {
 })
 export class MLServiceService {
 
-  url = 'http://127.0.0.1:5000/sendStatus';
+  url = config.url;
   urlGetAIHit = 'http://127.0.0.1:5000/getAIHit';
   hit = -1;
 

@@ -17,6 +17,9 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    // enable direct json import statements:
+    "resolveJsonModule": true,
+    "esModuleInterop": true
   }
 }

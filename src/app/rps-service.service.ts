@@ -5,12 +5,14 @@ import {Config, ConfigService} from './config.service';
 
 // import { MLServiceService } from '../mlservice.service';
 
+import config from '../assets/config.json';
+
 @Injectable({
   providedIn: 'root'
 })
 export class RpsServiceService {
 
-  maxHits = 5;
+  maxHits = config.gameLength;
   humanHits: number[] = [];
   aiHits: number[] = [];
   results: string[] = [];
@@ -30,13 +32,20 @@ export class RpsServiceService {
   }
 
   init() {
-    //this.maxHits = this.configService.gameLength;
+    // this.showConfig();
+// this.maxHits = this.configService.gameLength;
   }
 
   showConfig() {
-    this.configService.getConfig()
+
+    // this.configService.getConfig()
     // clone the data object, using its known Config shape
-      .subscribe((data: Config) => this.config = { ...data });
+    //  .subscribe((data: Config) => this.config = { ...data });
+
+    this.configService.getConfig()
+      .subscribe((data: Config) => this.config = {
+        gameLength: data.gameLength
+      });
   }
 
   getLeaders(): Leader[] {

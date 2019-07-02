@@ -1,3 +1,4 @@
 {
-  "gameLength": 8
+  "gameLength": 8,
+  "url": "http://127.0.0.1:5000/sendStatus"
 }
