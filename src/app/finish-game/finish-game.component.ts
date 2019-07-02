@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RpsServiceService } from '../rps-service.service';
 import { MLServiceService } from '../mlservice.service';
+import { ImageServiceService } from '../image-service.service';
 
 @Component({
   selector: 'app-finish-game',
@@ -10,10 +11,18 @@ import { MLServiceService } from '../mlservice.service';
 })
 export class FinishGameComponent implements OnInit {
 
-  constructor(private rpsServiceService: RpsServiceService, private router: Router, private mlService: MLServiceService) {
+  msgLogo: string;
+
+  constructor(
+    private rpsServiceService: RpsServiceService,
+    private router: Router,
+    private mlService: MLServiceService,
+    private imageServiceService: ImageServiceService
+  ) {
   }
 
   ngOnInit() {
+    this.msgLogo = this.imageServiceService.msgLogo;
   }
 
   calculateGameResult(): string {

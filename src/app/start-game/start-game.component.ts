@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { RpsServiceService } from '../rps-service.service';
 import { MLServiceService } from '../mlservice.service';
 import { ImageServiceService } from '../image-service.service';
-import {Leader} from '../leader';
+import { Leader } from '../leader';
 
 @Component({
   selector: 'app-start-game',
@@ -18,7 +18,7 @@ export class StartGameComponent implements OnInit {
   anonymImage: string;
   msgLogo: string;
 
-  status: string;
+  //status: string;
 
   /*
   leader = new Leader(1, 'Simeon', true);
