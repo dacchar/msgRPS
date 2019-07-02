@@ -29,7 +29,6 @@ export class GameComponent implements OnInit {
     private rpsServiceService: RpsServiceService,
     private router: Router, private mlService: MLServiceService,
     private imageServiceService: ImageServiceService) {
-
   }
 
   ngOnInit() {
@@ -73,19 +72,6 @@ export class GameComponent implements OnInit {
     this.humanHit(2);
   }
 
-  /*
-  increaseHit() {
-    this.hitIndex++;
-    this.aiHit();
-    this.saveResult();
-
-    // check if the game finish:
-    if (this.hitIndex === this.getMaxHits()) {
-      this.router.navigateByUrl('/FinishGameComponent');
-    }
-  }
-   */
-
   humanHit(hit: number) {
     this.hitIndex++;
     this.currentHit = hit;
@@ -93,46 +79,6 @@ export class GameComponent implements OnInit {
     this.currentAiHitImage = this.imageServiceService.questionImage;
     this.sendHitToML(hit);
     this.startTimer();
-
-
-    // this.increaseHit();
-
-    /*
-    this.saveResult();
-
-    // check if the game finish:
-    if (this.hitIndex === this.getMaxHits()) {
-      this.router.navigateByUrl('/FinishGameComponent');
-    }
-     */
-  }
-
-  /*
-  async getAIHit2(): number {
-    let createdEmployee = await this.mlService.getAIHit2();
-    console.log('Created Employee: ' + createdEmployee.hit);
-
-    var res = createdEmployee.hit;
-
-    return res;
-  }
-
-   */
-
-  aiHit() {
-    /*
-    let sss = this.mlService.getAIHit();
-    var sss2 = this.mlService.hit;
-
-    this.currentAiHit = this.getAIHit2();
-
-     */
-
-
-    this.currentAiHit = 1;
-
-
-    this.rpsServiceService.aiHits.push(this.currentAiHit);
   }
 
   saveResult() {
@@ -166,17 +112,6 @@ export class GameComponent implements OnInit {
     } else {
       return '';
     }
-
-    /*
-    if(this.results[i]==='WIN') {
-      return 'green';
-    } else if(this.results[i]==='LOSE') {
-      return 'red';
-    } else {
-      return 'yellow';
-    }
-
-     */
   }
 
   reset() {
@@ -203,22 +138,8 @@ export class GameComponent implements OnInit {
     ).subscribe(
       data => {
         console.log(data);
-        /*
-        this.status = status;
-         */
       }
     );
-
-    /*
-    this.mlService.send(
-      {
-        leaderId: this.rpsServiceService.activeLeaderIndex,
-        leaderName: this.rpsServiceService.leaders[this.rpsServiceService.activeLeaderIndex].name,
-        status: 'end',
-        hit: this.currentHit
-      }
-    );
-     */
   }
 
   setAIImage() {
@@ -244,9 +165,6 @@ export class GameComponent implements OnInit {
     ).subscribe(
       data => {
         console.log(data);
-        /*
-        this.status = status;
-         */
         this.currentAiHit = data.hit;
         console.log('currentAiHit: ' + data.hit);
 
@@ -259,19 +177,6 @@ export class GameComponent implements OnInit {
         }
       }
     );
-
-
-    /*
-    this.mlService.send(
-      {
-        leaderId: this.rpsServiceService.activeLeaderIndex,
-        leaderName: this.rpsServiceService.leaders[this.rpsServiceService.activeLeaderIndex].name,
-        status: 'playing',
-        hit: hit
-      }
-    );
-
-     */
   }
 
   getResultText(): string {
@@ -285,5 +190,4 @@ export class GameComponent implements OnInit {
       return '';
     }
   }
-
 }

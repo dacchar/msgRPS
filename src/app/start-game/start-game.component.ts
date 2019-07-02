@@ -18,14 +18,6 @@ export class StartGameComponent implements OnInit {
   anonymImage: string;
   msgLogo: string;
 
-  //status: string;
-
-  /*
-  leader = new Leader(1, 'Simeon', true);
-  errorMessage: string;
-
-   */
-
   constructor(
     private rpsServiceService: RpsServiceService,
     private router: Router,
@@ -81,30 +73,5 @@ export class StartGameComponent implements OnInit {
               this.router.navigateByUrl('/error');
           }
     );
-
-
-    /*
-    this.mlService.send(
-      {
-        leaderId:  this.rpsServiceService.activeLeaderIndex,
-        leaderName: this.rpsServiceService.leaders[this.rpsServiceService.activeLeaderIndex].name,
-        status: 'begin',
-        hit: -1
-      }
-    );
-     */
-
-
-    /*
-    this.mlService.startGame();
-     */
-
-    /*
-    this.mlService.startGame(this.leader)
-      .subscribe( leader => {
-        },
-        error => this.errorMessage = <any> error);
-
-     */
   }
 }

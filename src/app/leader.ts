@@ -2,9 +2,7 @@ export class Leader {
   id: number;
   name: string;
   activ: boolean;
-  /*
-  avatar: string;
-   */
+  // avatar: string;
 
   constructor(id: number, name: string, activ: boolean ) {
     this.id = id;
