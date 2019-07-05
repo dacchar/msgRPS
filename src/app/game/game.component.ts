@@ -177,7 +177,7 @@ export class GameComponent implements OnInit {
       data => {
         console.log(data);
         this.currentAiHit = data.hit;
-        console.log('currentAiHit: ' + data.hit);
+        this.rpsServiceService.aiHits.push(data.hit);
 
         this.setAIImage();
         this.saveResult();
