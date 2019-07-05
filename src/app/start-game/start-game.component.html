@@ -11,50 +11,101 @@
     <h4 class="text-center">Demonstration der Maschinen Learning</h4>
   </div>
 
-  <div class="row">
-    <div class="col-md-4">
-      <div>
-        <button (click)="chooseImage(0)">
-          <img alt="Simeon Logo" src="{{anonymImage}}" style="width:50%">
-        </button>
+  <div *ngIf="mode === 'playing'">
+    <div class="row">
+      <div class="col-md-4">
+        <div>
+          <button (click)="chooseImage(0)">
+            <img alt="Simeon Logo" src="{{anonymImage}}" style="width:50%">
+          </button>
+        </div>
+        <div>Simeon</div>
+        <div>
+          <div *ngIf="getLeaderActiv(0)">
+            <img alt="Ausgewält Logo" width="100" src="{{okImage}}">
+          </div>
+        </div>
       </div>
-      <div>Simeon</div>
-      <div>
-        <div *ngIf="getLeaderActiv(0)">
+      <div class="col-md-4">
+        <div>
+          <button (click)="chooseImage(1)">
+            <img alt="Hendrik Logo" src="{{anonymImage}}" style="width:50%">
+          </button>
+        </div>
+        <div>Hendrik</div>
+        <div>
+          <div *ngIf="getLeaderActiv(1)">
+            <img alt="Ausgewält Logo" width="100" src="{{okImage}}">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div>
+          <button (click)="chooseImage(2)">
+            <img alt="Helge Logo" src="{{anonymImage}}" style="width:50%">
+          </button>
+        </div>
+        <div>Helge</div>
+        <div *ngIf="getLeaderActiv(2)">
           <img alt="Ausgewält Logo" width="100" src="{{okImage}}">
         </div>
       </div>
     </div>
-    <div class="col-md-4">
-      <div>
-        <button (click)="chooseImage(1)">
-          <img alt="Hendrik Logo" src="{{anonymImage}}" style="width:50%">
-        </button>
-      </div>
-      <div>Hendrik</div>
-      <div>
-        <div *ngIf="getLeaderActiv(1)">
-          <img alt="Ausgewält Logo" width="100" src="{{okImage}}">
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div>
-        <button (click)="chooseImage(2)">
-          <img alt="Helge Logo" src="{{anonymImage}}" style="width:50%">
-        </button>
-      </div>
-      <div>Helge</div>
-      <div *ngIf="getLeaderActiv(2)">
-        <img alt="Ausgewält Logo" width="100" src="{{okImage}}">
-      </div>
-    </div>
-  </div>
 
-  <div class="row">
-    <div *ngIf="isLeaderChoosen">
+    <div class="row">
+      <div *ngIf="isLeaderChoosen">
+        <button mat-raised-button color="primary" (click)="startGame()">Start Spiel</button>
+      </div>
+    </div>
+
+  </div>  <!-- playing mode -->
+
+  <div *ngIf="mode === 'training'">
+    <div class="row justify-content-center">
+
+      <form [formGroup]="trainerForm">
+        <!--
+        <label>
+          Trainer name:
+          <input type="text" formControlName="name" [(ngModel)]="name">
+        </label>
+        -->
+
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Trainer name" type="text" formControlName="name" [(ngModel)]="name">
+        </mat-form-field>
+
+
+        <!--
+        <button mat-raised-button color="primary" type="submit" (click)="startGame()">Submit</button>
+        -->
+      </form>
+
+      <!--
+      <form [formGroup]="userForm" class="text-center border border-light p-5">
+
+        <p class="h4 mb-4">Sign up</p>
+
+        <input type="trainerName" id="defaultRegisterFormTrainerName" class="form-control mb-4" placeholder="Trainer name">
+
+        <button class="btn btn-info my-4 btn-block" type="submit" (click)="startGame()">Sign in</button>
+
+        <hr>
+
+      </form>
+      -->
+
+      <!--
+      <form>
+        <input type="text" [(ngModel)]="trainerName" name="trainerName">
+      </form>
+      -->
+    </div>
+    <br>
+    <div class="row">
       <button mat-raised-button color="primary" (click)="startGame()">Start Spiel</button>
     </div>
+  </div>  <!-- training mode -->
 
-  </div>
+
 </div>

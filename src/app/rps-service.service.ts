@@ -12,13 +12,15 @@ export class RpsServiceService {
   aiHits: number[] = [];
   results: string[] = [];
 
-  activeLeaderIndex: number;
+  activeLeaderIndex = -1;
 
   leaders: Leader[] = [
     new Leader( 1, 'Simeon', false),
     new Leader( 2, 'Hendrik', false),
     new Leader( 3, 'Helge', false)
   ];
+
+  trainerName: string;
 
   constructor() {
   }

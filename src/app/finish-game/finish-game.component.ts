@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { RpsServiceService } from '../rps-service.service';
 import { MLServiceService } from '../mlservice.service';
 import { ImageServiceService } from '../image-service.service';
+import config from '../../assets/config.json';
 
 @Component({
   selector: 'app-finish-game',
@@ -49,10 +50,20 @@ export class FinishGameComponent implements OnInit {
 
   sendToML(): void {
 
+    var leaderIdCurrent: number;
+    var leaderNameCurrent: string;
+    if (config.mode === 'playing') {
+      leaderIdCurrent = this.rpsServiceService.activeLeaderIndex;
+      leaderNameCurrent = this.rpsServiceService.leaders[this.rpsServiceService.activeLeaderIndex].name;
+    } else {
+      leaderIdCurrent = -1;
+      leaderNameCurrent = this.rpsServiceService.trainerName;
+    }
+
     this.mlService.send2(
       {
-        leaderId: this.rpsServiceService.activeLeaderIndex,
-        leaderName: this.rpsServiceService.leaders[this.rpsServiceService.activeLeaderIndex].name,
+        leaderId: leaderIdCurrent,
+        leaderName: leaderNameCurrent,
         status: 'end',
         hit: -1
       }
