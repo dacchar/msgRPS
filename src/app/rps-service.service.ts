@@ -33,8 +33,8 @@ export class RpsServiceService {
   }
 
   resetLeaders() {
-    for (const leaderIndex in this.leaders) {
-      this.leaders[leaderIndex].activ = false;
+    for (const leader of this.leaders) {
+      leader.activ = false;
     }
   }
 
@@ -56,8 +56,8 @@ export class RpsServiceService {
 
   calculateHumanPoints(what: string): number {
     let count = 0;
-    for (let i = 0; i < this.results.length; i++) {
-      if (this.results[i] === what) {
+    for (const result of this.results) {
+      if (result === what) {
         count++;
       }
     }
@@ -68,10 +68,10 @@ export class RpsServiceService {
     let winHumanCount = 0;
     let winAiCount = 0;
 
-    for (let i = 0; i < this.results.length; i++) {
-      if (this.results[i] === 'WIN') {
+    for (const result of this.results) {
+      if (result === 'WIN') {
         winHumanCount++;
-      } else if (this.results[i] === 'LOSE') {
+      } else if (result === 'LOSE') {
         winAiCount++;
       }
     }

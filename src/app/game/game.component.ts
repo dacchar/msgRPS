@@ -46,7 +46,26 @@ export class GameComponent implements OnInit {
     this.progressBarValue = 0;
     const timerId = setInterval(() => this.progressBarValue += 5, 250);
     setTimeout(() => {
+
+/*
+      this.hitIndex++;
+      this.rpsServiceService.humanHits.push(this.currentHit);
+      this.rpsServiceService.aiHits.push(-1);
+      this.rpsServiceService.results.push('LOSE');
+      this.currentHumanHitImage = this.imageServiceService.questionImage;
+      this.currentAiHitImage = this.imageServiceService.questionImage;
+
+      // this.sendHitToML(hit);
+      this.startTimer();
+
+      if (this.hitIndex === this.getMaxHits()) {
+        this.router.navigateByUrl('/FinishGameComponent');
+      }
+
       clearInterval(timerId);
+ */
+
+
     }, 5000);
   }
 
