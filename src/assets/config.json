@@ -1,5 +1,5 @@
 {
-  "gameLength": 8,
+  "gameLength": 4,
   "url": "http://127.0.0.1:5000/sendStatus",
   "mode": "training"
 }

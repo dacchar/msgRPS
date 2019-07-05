@@ -63,47 +63,30 @@
   <div *ngIf="mode === 'training'">
     <div class="row justify-content-center">
 
-      <form [formGroup]="trainerForm">
-        <!--
-        <label>
-          Trainer name:
-          <input type="text" formControlName="name" [(ngModel)]="name">
-        </label>
-        -->
+      <form #trainerRegForm='ngForm' (ngSubmit)="startGameAsTrainer(trainerRegForm)">
+        <h2 class="text-center">Trainer Registration</h2>
 
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Trainer Name" name="trainerName" ngModel>
+        </div>
+        <div *ngIf="trainerNameInvalid" class="text-danger">
+          <div>Trainer name is required.</div>
+          <br>
+        </div>
+
+        <div class="align-center">
+          <button mat-raised-button color="primary" type="submit" id="registertrainer">Start Spiel</button>
+        </div>
+      </form>
+
+      <!--
+      <form [formGroup]="trainerForm">
         <mat-form-field class="example-full-width">
           <input matInput placeholder="Trainer name" type="text" formControlName="name" [(ngModel)]="name">
         </mat-form-field>
-
-
-        <!--
-        <button mat-raised-button color="primary" type="submit" (click)="startGame()">Submit</button>
-        -->
-      </form>
-
-      <!--
-      <form [formGroup]="userForm" class="text-center border border-light p-5">
-
-        <p class="h4 mb-4">Sign up</p>
-
-        <input type="trainerName" id="defaultRegisterFormTrainerName" class="form-control mb-4" placeholder="Trainer name">
-
-        <button class="btn btn-info my-4 btn-block" type="submit" (click)="startGame()">Sign in</button>
-
-        <hr>
-
       </form>
       -->
 
-      <!--
-      <form>
-        <input type="text" [(ngModel)]="trainerName" name="trainerName">
-      </form>
-      -->
-    </div>
-    <br>
-    <div class="row">
-      <button mat-raised-button color="primary" (click)="startGame()">Start Spiel</button>
     </div>
   </div>  <!-- training mode -->
 

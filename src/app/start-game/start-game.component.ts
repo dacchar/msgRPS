@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder } from '@angular/forms';
-import { FormGroup, FormControl } from '@angular/forms';
+import {FormBuilder, NgForm} from '@angular/forms';
 import { RpsServiceService } from '../rps-service.service';
 import { MLServiceService } from '../mlservice.service';
 import { ImageServiceService } from '../image-service.service';
@@ -22,11 +21,7 @@ export class StartGameComponent implements OnInit {
   msgLogo: string;
   mode: string;
   trainerName: string;
-  userForm: any;
-
-  trainerForm = new FormGroup({
-    name: new FormControl('')
-  });
+  trainerNameInvalid = false;
 
   constructor(
     private rpsServiceService: RpsServiceService,
@@ -42,9 +37,6 @@ export class StartGameComponent implements OnInit {
     this.anonymImage = this.imageServiceService.anonymImage;
     this.msgLogo = this.imageServiceService.msgLogo;
     this.mode = config.mode;
-    this.userForm = this.formBuilder.group({
-      trainerName: ['']
-    });
   }
 
   chooseImage(i: number) {
@@ -67,14 +59,24 @@ export class StartGameComponent implements OnInit {
   }
 
   startGame() {
-    console.log(this.trainerForm.value.name);
-    this.rpsServiceService.trainerName = this.trainerForm.value.name;
+    this.sendToML();
+    this.router.navigateByUrl('/game');
+  }
+
+  startGameAsTrainer(trainerData: NgForm) {
+    console.log('Trainer: ' + trainerData.form.value.trainerName);
+    if ( trainerData.form.value.trainerName === '' ) {
+      this.trainerNameInvalid = true;
+      return;
+    }
+
+    this.rpsServiceService.trainerName = trainerData.form.value.trainerName;
     this.sendToML();
     this.router.navigateByUrl('/game');
   }
 
   sendToML(): void {
-    if(config.mode === 'playing') {
+    if (config.mode === 'playing') {
       this.mlService.send2(
         {
           leaderId: this.rpsServiceService.activeLeaderIndex,
@@ -95,7 +97,7 @@ export class StartGameComponent implements OnInit {
       this.mlService.send2(
         {
           leaderId: -1,
-          leaderName: this.trainerForm.value.name,
+          leaderName: this.rpsServiceService.trainerName,
           status: 'begin',
           hit: -1
         }

@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule, MatCardModule } from '@angular/material';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule} from '@angular/forms'
 import {MatInputModule} from '@angular/material/input';
 
 import { AppComponent } from './app.component';
@@ -25,6 +26,7 @@ import { ErrorGameComponent } from './error-game/error-game.component';
   imports: [
     BrowserModule,
     ReactiveFormsModule,
+    FormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
