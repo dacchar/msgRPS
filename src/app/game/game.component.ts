@@ -164,7 +164,8 @@ export class GameComponent implements OnInit {
         leaderId: leaderIdCurrent,
         leaderName: leaderNameCurrent,
         status: 'end',
-        hit: this.currentHit
+        hit: this.currentHit,
+        mode: config.mode
       }
     ).subscribe(
       data => {
@@ -201,7 +202,8 @@ export class GameComponent implements OnInit {
         leaderId: leaderIdCurrent,
         leaderName: leaderNameCurrent,
         status: 'playing',
-        hit: pHit
+        hit: pHit,
+        mode: config.mode
       }
     ).subscribe(
       data => {

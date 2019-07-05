@@ -65,7 +65,8 @@ export class FinishGameComponent implements OnInit {
         leaderId: leaderIdCurrent,
         leaderName: leaderNameCurrent,
         status: 'end',
-        hit: -1
+        hit: -1,
+        mode: config.mode
       }
     ).subscribe(
       data => {

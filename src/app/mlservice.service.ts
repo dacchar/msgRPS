@@ -8,6 +8,7 @@ export interface GameStatus {
   leaderName: string;
   hit: number;
   status: string;
+  mode: string;
 }
 
 @Injectable({
