@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {FormBuilder, NgForm} from '@angular/forms';
 import { RpsServiceService } from '../rps-service.service';
 import { MLServiceService } from '../mlservice.service';
 import { ImageServiceService } from '../image-service.service';
@@ -27,8 +26,7 @@ export class StartGameComponent implements OnInit {
     private rpsServiceService: RpsServiceService,
     private router: Router,
     private mlService: MLServiceService,
-    private imageServiceService: ImageServiceService,
-    private formBuilder: FormBuilder) {
+    private imageServiceService: ImageServiceService) {
   }
 
   ngOnInit() {
