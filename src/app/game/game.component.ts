@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {RpsServiceService} from '../rps-service.service';
 import {MLServiceService} from '../mlservice.service';
 import {ImageServiceService} from '../image-service.service';
+import {GamepadServiceService} from '../gamepad-service.service';
 import config from '../../assets/config.json';
 
 @Component({
@@ -26,13 +27,24 @@ export class GameComponent implements OnInit {
 
   progressBarValue = 0;
   intervalBs: any;
-  startCount = 0;
+  // startCount = 0;
 
+  intervalTimeRequest: any;
+  intervalGamePad: any;
+
+  time = 'Wait please...';
+
+  gamepadHit = {
+    timestamp: -1,
+    hit: 0
+  };
 
   constructor(
     private rpsServiceService: RpsServiceService,
     private router: Router, private mlService: MLServiceService,
-    private imageServiceService: ImageServiceService) {
+    private imageServiceService: ImageServiceService,
+    private gamepadServiceService: GamepadServiceService
+  ) {
   }
 
   ngOnInit() {
@@ -44,15 +56,36 @@ export class GameComponent implements OnInit {
     this.setAIImage();
     // this.startTimer();
     this.startInterval();
-  }
 
-  ngOnDestroy() {
-    if (this.intervalBs) {
-      clearInterval(this.intervalBs);
+    // this.getTime();
+    // this.startTimeRequest();
+
+    // this.gamepadServiceService.getJSON().subscribe(data => {
+    //   console.log('Data:');
+    //   console.log('Hit: ' + data.hit);
+    // });
+
+    // this.gamepadServiceService.getGamepadHit().subscribe(data => {
+    //   console.log('Type Data:');
+    //   console.log('Timestamp: ' + data.timestamp);
+    //   console.log('Hit: ' + data.hit);
+    // });
+
+    if (config.gamepadOn) {
+      this.startIntervalGamePad();
     }
   }
 
-  startInterval(){
+  ngOnDestroy() {
+   this.stopInterval();
+   // this.stopTimeRequest();
+
+   if (config.gamepadOn) {
+     this.stopIntervalGamePad();
+   }
+  }
+
+  startInterval() {
     // this.start_count += 1;
     // if(this.start_count == 1){
     this.intervalBs = setInterval( () => {
@@ -78,12 +111,64 @@ export class GameComponent implements OnInit {
 
   stopInterval() {
     console.log( 'stopInterval called...' );
-    this.startCount=0;
-    // this.activeIndex = 0;
-    this.progressBarValue = 0;
+    if (this.intervalBs) {
+      // this.startCount = 0;
+      // this.activeIndex = 0;
+      this.progressBarValue = 0;
 
-    clearInterval(this.intervalBs);
+      clearInterval(this.intervalBs);
+    }
   }
+
+  startTimeRequest() {
+    this.intervalTimeRequest = setInterval( () => {
+      console.log( 'Time requested...' );
+      this.getTime();
+    }, 60000);
+  }
+
+  stopTimeRequest() {
+    console.log( 'Stop time request...' );
+    if (this.intervalTimeRequest) {
+      clearInterval(this.intervalTimeRequest);
+    }
+  }
+
+  startIntervalGamePad() {
+    // this.start_count += 1;
+    // if(this.start_count == 1){
+    this.intervalGamePad = setInterval( () => {
+      this.gamepadServiceService.getGamepadHit().subscribe(gamepadHit => {
+        console.log('Gamepad:');
+        console.log('Timestamp: ' + gamepadHit.timestamp);
+        console.log('Hit: ' + gamepadHit.hit);
+        if (this.gamepadHit.timestamp !== gamepadHit.timestamp) {
+          this.gamepadHit = gamepadHit;   // save last game pad hit
+
+          switch (gamepadHit.hit) {
+            case 0:
+              this.clickRock();
+              break;
+            case 1:
+              this.clickPaper();
+              break;
+            case 2:
+              this.clickScissors();
+              break;
+          }
+        }
+      });
+    }, 1000);
+    // }
+  }
+
+  stopIntervalGamePad() {
+    console.log( 'stopInterval called...' );
+    if (this.intervalGamePad) {
+      clearInterval(this.intervalGamePad);
+    }
+  }
+
 
   /*
   startTimer() {
@@ -280,5 +365,10 @@ export class GameComponent implements OnInit {
     } else {
       return '';
     }
+  }
+
+  getTime(): void {
+    this.gamepadServiceService.getTime()
+       .subscribe(time => this.time = time.datetime);
   }
 }
