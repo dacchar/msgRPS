@@ -24,7 +24,10 @@ export class GameComponent implements OnInit {
   currentHumanHitImage: string;
   currentAiHitImage: string;
 
-  progressBarValue: number;
+  progressBarValue = 0;
+  intervalBs: any;
+  startCount = 0;
+
 
   constructor(
     private rpsServiceService: RpsServiceService,
@@ -39,9 +42,50 @@ export class GameComponent implements OnInit {
     this.questionImage = this.imageServiceService.questionImage;
     this.currentHumanHitImage = this.imageServiceService.questionImage;
     this.setAIImage();
-    this.startTimer();
+    // this.startTimer();
+    this.startInterval();
   }
 
+  ngOnDestroy() {
+    if (this.intervalBs) {
+      clearInterval(this.intervalBs);
+    }
+  }
+
+  startInterval(){
+    // this.start_count += 1;
+    // if(this.start_count == 1){
+    this.intervalBs = setInterval( () => {
+      // console.log( 'progressBarValue: ' + this.progressBarValue );
+      this.progressBarValue += 5;
+      if ( this.progressBarValue === 100 ) {
+        // console.log( 'Stop..' );
+        clearInterval(this.intervalBs);
+
+        // do logic:
+        // this.hitIndex++;
+        // this.rpsServiceService.humanHits.push(-1);
+        // this.rpsServiceService.aiHits.push(-1);
+        // this.rpsServiceService.results.push('LOSE');
+        // this.currentHumanHitImage = this.imageServiceService.questionImage;
+        // this.currentAiHitImage = this.imageServiceService.questionImage;
+
+        // this.startInterval();
+      }
+    }, 250);
+    // }
+  }
+
+  stopInterval() {
+    console.log( 'stopInterval called...' );
+    this.startCount=0;
+    // this.activeIndex = 0;
+    this.progressBarValue = 0;
+
+    clearInterval(this.intervalBs);
+  }
+
+  /*
   startTimer() {
     this.progressBarValue = 0;
     const timerId = setInterval(() => this.progressBarValue += 5, 250);
@@ -70,6 +114,8 @@ export class GameComponent implements OnInit {
     }, 5000);
   }
 
+   */
+
   getLeaderActiv(i: number): boolean {
     return this.rpsServiceService.getLeaderActiv(i);
   }
@@ -94,12 +140,14 @@ export class GameComponent implements OnInit {
   }
 
   humanHit(hit: number) {
+    this.stopInterval();
     this.hitIndex++;
     this.currentHit = hit;
     this.rpsServiceService.humanHits.push(hit);
     this.currentAiHitImage = this.imageServiceService.questionImage;
     this.sendHitToML(hit);
-    this.startTimer();
+    // this.startTimer();
+    this.startInterval();
   }
 
   saveResult() {
