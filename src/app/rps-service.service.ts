@@ -7,6 +7,7 @@ import config from '../assets/config.json';
 })
 export class RpsServiceService {
 
+  gameId = 0;
   maxHits = config.gameLength;
   humanHits: number[] = [];
   aiHits: number[] = [];

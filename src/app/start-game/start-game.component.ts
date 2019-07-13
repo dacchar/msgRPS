@@ -57,11 +57,15 @@ export class StartGameComponent implements OnInit {
   }
 
   startGame() {
+    this.rpsServiceService.gameId = Date.now();
+    console.log('Game id: ' + this.rpsServiceService.gameId);
     this.sendToML();
     this.router.navigateByUrl('/game');
   }
 
   startGameAsTrainer(trainerData) {
+    this.rpsServiceService.gameId = Date.now();
+    console.log('Game id: ' + this.rpsServiceService.gameId);
     console.log('Trainer: ' + trainerData.form.value.trainerName);
     if ( trainerData.form.value.trainerName === '' ) {
       this.trainerNameInvalid = true;
@@ -77,6 +81,7 @@ export class StartGameComponent implements OnInit {
     if (config.mode === 'playing') {
       this.mlService.send2(
         {
+          gameId: this.rpsServiceService.gameId,
           leaderId: this.rpsServiceService.activeLeaderIndex,
           leaderName: this.rpsServiceService.leaders[this.rpsServiceService.activeLeaderIndex].name,
           status: 'begin',
@@ -95,6 +100,7 @@ export class StartGameComponent implements OnInit {
     } else if(config.mode === 'training') {
       this.mlService.send2(
         {
+          gameId: this.rpsServiceService.gameId,
           leaderId: -1,
           leaderName: this.rpsServiceService.trainerName,
           status: 'begin',

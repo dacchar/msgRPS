@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import config from '../assets/config.json';
 
 export interface GameStatus {
+  gameId: number;
   leaderId: number;
   leaderName: string;
   hit: number;

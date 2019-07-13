@@ -302,6 +302,7 @@ export class GameComponent implements OnInit {
 
     this.mlService.send2(
       {
+        gameId: this.rpsServiceService.gameId,
         leaderId: leaderIdCurrent,
         leaderName: leaderNameCurrent,
         status: 'end',
@@ -340,6 +341,7 @@ export class GameComponent implements OnInit {
 
     this.mlService.send2(
       {
+        gameId: this.rpsServiceService.gameId,
         leaderId: leaderIdCurrent,
         leaderName: leaderNameCurrent,
         status: 'playing',

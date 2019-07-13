@@ -62,6 +62,7 @@ export class FinishGameComponent implements OnInit {
 
     this.mlService.send2(
       {
+        gameId: this.rpsServiceService.gameId,
         leaderId: leaderIdCurrent,
         leaderName: leaderNameCurrent,
         status: 'end',
@@ -71,22 +72,7 @@ export class FinishGameComponent implements OnInit {
     ).subscribe(
       data => {
         console.log(data);
-        /*
-        this.status = status;
-         */
       }
     );
-
-
-    /*
-    this.mlService.send(
-      {
-        leaderId: this.rpsServiceService.activeLeaderIndex,
-        leaderName: this.rpsServiceService.leaders[this.rpsServiceService.activeLeaderIndex].name,
-        status: 'end',
-        hit: -1
-      }
-    );
-     */
   }
 }
