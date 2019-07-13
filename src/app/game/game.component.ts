@@ -73,7 +73,7 @@ export class GameComponent implements OnInit {
     //   console.log('Hit: ' + data.hit);
     // });
 
-    if (config.gamepadOn) {
+    if (config.gamepad.on) {
       this.startIntervalGamePad();
     }
   }
@@ -82,7 +82,7 @@ export class GameComponent implements OnInit {
    this.stopInterval();
    // this.stopTimeRequest();
 
-   if (config.gamepadOn) {
+   if (config.gamepad.on) {
      this.stopIntervalGamePad();
    }
   }
@@ -147,9 +147,9 @@ export class GameComponent implements OnInit {
     // if(this.start_count == 1){
     this.intervalGamePad = setInterval( () => {
       this.gamepadServiceService.getGamepadHit().subscribe(gamepadHit => {
-        console.log('Gamepad:');
-        console.log('Timestamp: ' + gamepadHit.timestamp);
-        console.log('Hit: ' + gamepadHit.hit);
+        // console.log('Gamepad:');
+        // console.log('Timestamp: ' + gamepadHit.timestamp);
+        // console.log('Hit: ' + gamepadHit.hit);
         if (this.gamepadHit.timestamp !== gamepadHit.timestamp) {
           this.gamepadHit = gamepadHit;   // save last game pad hit
 
@@ -166,7 +166,7 @@ export class GameComponent implements OnInit {
           }
         }
       });
-    }, 1000);
+    }, config.gamepad.requestFrequence);
     // }
   }
 

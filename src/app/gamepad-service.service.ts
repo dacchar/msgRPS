@@ -17,7 +17,7 @@ export interface GamepadHit {
 })
 export class GamepadServiceService {
 
-  url = config.gamepadUrl;
+  url = config.gamepad.url;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -25,16 +25,12 @@ export class GamepadServiceService {
     return this.httpClient.get<Time>(this.url);
   }
 
-  public getJSON(): Observable<any> {
-    return this.httpClient.get('./assets/mydata.json');
-  }
-
   public getGamepadHit(): Observable<GamepadHit> {
-    return this.httpClient.get<GamepadHit>(config.gamepadUrlGetHit);
+    return this.httpClient.get<GamepadHit>(config.gamepad.urlGetHit);
   }
 
   public clearGamepad(): Observable<GamepadHit> {
-    return this.httpClient.get<GamepadHit>(config.gamepadUrlClear);
+    return this.httpClient.get<GamepadHit>(config.gamepad.urlClear);
   }
 
 }
