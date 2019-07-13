@@ -30,6 +30,11 @@ export class GamepadServiceService {
   }
 
   public getGamepadHit(): Observable<GamepadHit> {
-    return this.httpClient.get<GamepadHit>(config.gamepadUrl2);
+    return this.httpClient.get<GamepadHit>(config.gamepadUrlGetHit);
   }
+
+  public clearGamepad(): Observable<GamepadHit> {
+    return this.httpClient.get<GamepadHit>(config.gamepadUrlClear);
+  }
+
 }

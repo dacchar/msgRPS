@@ -3,6 +3,7 @@
   "url": "http://127.0.0.1:5000/sendStatus",
   "gamepadOn": true,
   "gamepadUrl": "http://worldtimeapi.org/api/timezone/Europe/Berlin",
-  "gamepadUrl2": "http://localhost:3000/msgRPS/getGamepadHit",
+  "gamepadUrlGetHit": "http://localhost:3000/msgRPS/getGamepadHit",
+  "gamepadUrlClear": "http://localhost:3000/msgRPS/clearGamepadHit",
   "mode": "training"
 }

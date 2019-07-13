@@ -55,6 +55,8 @@ export class GameComponent implements OnInit {
     this.currentHumanHitImage = this.imageServiceService.questionImage;
     this.setAIImage();
     // this.startTimer();
+
+    this.clearGamePad();
     this.startInterval();
 
     // this.getTime();
@@ -132,6 +134,12 @@ export class GameComponent implements OnInit {
     if (this.intervalTimeRequest) {
       clearInterval(this.intervalTimeRequest);
     }
+  }
+
+  clearGamePad() {
+    this.gamepadServiceService.clearGamepad().subscribe(gamepadHit => {
+      console.log('clear gamepad:');
+    });
   }
 
   startIntervalGamePad() {

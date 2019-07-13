@@ -2,15 +2,12 @@
 
 	<div class="jumbotron">
 		<div class="text-center">
-			<h1>Sie spielen gegen MSG-AI!</h1>
+			<h1>You are playing against the MSG-AI!</h1>
 		</div>
 		<div class="text-center">
 			<h2>
-				Gespielt {{hitIndex}} Spielen aus {{getMaxHits()}}.
+				Hit : {{hitIndex}}, from {{getMaxHits()}}.
 			</h2>
-      <h5>
-        {{time}}
-      </h5>
 		</div>
 	</div>
 
@@ -133,7 +130,7 @@
 
 
   <div class="row mt-5">
-    <button mat-raised-button color="primary" (click)="nextPage()">Zum Spielbegin</button>
+    <button mat-raised-button color="primary" (click)="nextPage()">To start</button>
   </div>
 
 </div>

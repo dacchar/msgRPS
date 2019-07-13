@@ -8,7 +8,7 @@
 
   <div class="jumbotron">
     <h1 class="text-center">MSG Schere-Stein-Papier Spiel</h1>
-    <h4 class="text-center">Demonstration der Maschinen Learning</h4>
+    <h4 class="text-center">The Maschine Learning demonstration</h4>
   </div>
 
   <div *ngIf="mode === 'playing'">
@@ -64,7 +64,7 @@
     <div class="row justify-content-center">
 
       <form #trainerRegForm='ngForm' (ngSubmit)="startGameAsTrainer(trainerRegForm)">
-        <h2 class="text-center">Trainer Registration</h2>
+        <h2 class="text-center">Trainer registration</h2>
 
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Trainer Name" name="trainerName" ngModel>
@@ -75,7 +75,7 @@
         </div>
 
         <div class="align-center">
-          <button mat-raised-button color="primary" type="submit" id="registertrainer">Start Spiel</button>
+          <button mat-raised-button color="primary" type="submit" id="registertrainer">Start</button>
         </div>
       </form>
 
