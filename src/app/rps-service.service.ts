@@ -55,6 +55,10 @@ export class RpsServiceService {
     return this.calculateHumanPoints('LOSE');
   }
 
+  calculateDraw(): number {
+    return this.calculateHumanPoints('DRAW');
+  }
+
   calculateHumanPoints(what: string): number {
     let count = 0;
     for (const result of this.results) {

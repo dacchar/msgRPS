@@ -38,6 +38,10 @@ export class FinishGameComponent implements OnInit {
     return this.rpsServiceService.calculateHumanLost();
   }
 
+  calculateDraw(): number {
+    return this.rpsServiceService.calculateDraw();
+  }
+
   reset() {
     this.rpsServiceService.reset();
   }
