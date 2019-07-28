@@ -1,5 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
+import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
+import { Label } from 'ng2-charts';
+import { BaseChartDirective } from 'ng2-charts';
 import {RpsServiceService} from '../rps-service.service';
 import {MLServiceService} from '../mlservice.service';
 import {ImageServiceService} from '../image-service.service';
@@ -38,6 +41,37 @@ export class GameComponent implements OnInit {
     timestamp: -1,
     hit: 0
   };
+
+  @ViewChild(BaseChartDirective)
+  public chart: BaseChartDirective;
+
+  public barChartOptions: ChartOptions = {
+    responsive: true,
+    scales : {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true,
+          stepSize: config.gameLength / 4,
+          max : config.gameLength,
+        }
+      }]
+    }
+  };
+  public barChartLabels: Label[] = ['Intermediary result'];
+  public barChartType: ChartType = 'bar';
+  public barChartLegend = true;
+  public barChartPlugins = [];
+  public chartColors = [
+    { backgroundColor: '#008800' },
+    { backgroundColor: '#fcfc40' },
+    { backgroundColor: '#ff0000' }
+  ];
+
+  public barChartData: ChartDataSets[] = [
+    { data: [0], label: 'Win' },
+    { data: [0], label: 'Draw' },
+    { data: [0], label: 'Lost' }
+  ];
 
   constructor(
     private rpsServiceService: RpsServiceService,
@@ -356,6 +390,11 @@ export class GameComponent implements OnInit {
 
         this.setAIImage();
         this.saveResult();
+
+        this.barChartData[0].data[0] = this.rpsServiceService.calculateHumanWins();
+        this.barChartData[1].data[0] = this.rpsServiceService.calculateDraw();
+        this.barChartData[2].data[0] = this.rpsServiceService.calculateHumanLost();
+        this.chart.chart.update();
 
         // check if the game finish:
         if (this.hitIndex === this.getMaxHits()) {

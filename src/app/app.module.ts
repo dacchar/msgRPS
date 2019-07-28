@@ -7,6 +7,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { ReactiveFormsModule } from '@angular/forms';
 import {FormsModule} from '@angular/forms'
 import {MatInputModule} from '@angular/material/input';
+import { ChartsModule } from 'ng2-charts';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -33,7 +34,8 @@ import { ErrorGameComponent } from './error-game/error-game.component';
     MatButtonModule,
     MatCardModule,
     MatProgressBarModule,
-    MatInputModule
+    MatInputModule,
+    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

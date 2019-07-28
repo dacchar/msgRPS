@@ -1,5 +1,5 @@
 {
-  "gameLength": 10,
+  "gameLength": 32,
   "url": "http://127.0.0.1:5000/sendStatus",
   "gamepad": {
     "on": true,

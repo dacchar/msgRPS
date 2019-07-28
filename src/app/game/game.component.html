@@ -4,12 +4,40 @@
 		<div class="text-center">
 			<h1>You are playing against the MSG-AI!</h1>
 		</div>
-		<div class="text-center">
-			<h2>
-				Hit : {{hitIndex}}, from {{getMaxHits()}}.
-			</h2>
-		</div>
-	</div>
+
+    <div class="row align-items-center">
+      <div class="col">
+        <div align="right">
+          <h2>Hit : {{hitIndex}} from {{getMaxHits()}}.</h2>
+        </div>
+      </div>
+
+      <div class="col justify-content-right">
+        <div>
+          <div align="right">
+            <!--
+          <div class="chart-container" style="position: relative; height:15vh; width:15vw">
+          -->
+            <div style="display: block; ; height:15vh; width:15vw">
+              <canvas baseChart
+                      [datasets]="barChartData"
+                      [labels]="barChartLabels"
+                      [options]="barChartOptions"
+                      [plugins]="barChartPlugins"
+                      [legend]="barChartLegend"
+                      [colors]="chartColors"
+                      [chartType]="barChartType">
+              </canvas>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
 
 
 	<div class="row">
