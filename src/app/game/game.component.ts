@@ -324,8 +324,8 @@ export class GameComponent implements OnInit {
   }
 
   sendToML(): void {
-    var leaderIdCurrent: number;
-    var leaderNameCurrent: string;
+    let leaderIdCurrent: number;
+    let leaderNameCurrent: string;
     if (config.mode === 'playing') {
       leaderIdCurrent = this.rpsServiceService.activeLeaderIndex;
       leaderNameCurrent = this.rpsServiceService.leaders[this.rpsServiceService.activeLeaderIndex].name;
@@ -363,8 +363,8 @@ export class GameComponent implements OnInit {
   }
 
   sendHitToML(pHit: number): void {
-    var leaderIdCurrent: number;
-    var leaderNameCurrent: string;
+    let leaderIdCurrent: number;
+    let leaderNameCurrent: string;
     if (config.mode === 'playing') {
       leaderIdCurrent = this.rpsServiceService.activeLeaderIndex;
       leaderNameCurrent = this.rpsServiceService.leaders[this.rpsServiceService.activeLeaderIndex].name;
