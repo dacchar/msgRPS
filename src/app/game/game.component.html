@@ -18,7 +18,7 @@
             <!--
           <div class="chart-container" style="position: relative; height:15vh; width:15vw">
           -->
-            <div style="display: block; ; height:15vh; width:15vw">
+            <div style="display: block; height:12vh; width:12vw">
               <canvas baseChart
                       [datasets]="barChartData"
                       [labels]="barChartLabels"
@@ -30,7 +30,27 @@
               </canvas>
             </div>
           </div>
+        </div>
+      </div>
 
+      <div class="col justify-content-right">
+        <div>
+          <div align="right">
+            <!--
+          <div class="chart-container" style="position: relative; height:15vh; width:15vw">
+          -->
+            <div style="display: block; height:12vh; width:12vw">
+              <canvas baseChart
+                      [datasets]="barChartData"
+                      [labels]="barChartLabels"
+                      [options]="barChartOptions"
+                      [plugins]="barChartPlugins"
+                      [legend]="barChartLegend"
+                      [colors]="chartColors"
+                      [chartType]="barChartType">
+              </canvas>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -73,7 +93,7 @@
     -->
     <div>
       <div class="text-center">
-      <mat-card [style.background]="getBackgroundColor()">
+      <mat-card [style.background]="backgroundColor">
         <mat-card-content>
             <div>
               You:

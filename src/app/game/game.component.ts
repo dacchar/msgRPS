@@ -9,6 +9,11 @@ import {ImageServiceService} from '../image-service.service';
 import {GamepadServiceService} from '../gamepad-service.service';
 import config from '../../assets/config.json';
 
+enum GameProcessStatus {
+  WaitingForHumanHit = 1,
+  WaitingForAIHit
+}
+
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
@@ -42,6 +47,10 @@ export class GameComponent implements OnInit {
     hit: 0
   };
 
+  backgroundColor: string;
+
+  gameProcessStatus: GameProcessStatus = GameProcessStatus.WaitingForHumanHit;
+
   @ViewChild(BaseChartDirective)
   public chart: BaseChartDirective;
 
@@ -51,7 +60,7 @@ export class GameComponent implements OnInit {
       yAxes: [{
         ticks: {
           beginAtZero: true,
-          stepSize: config.gameLength / 4,
+          stepSize: config.gameLength / 2,
           max : config.gameLength,
         }
       }]
@@ -252,22 +261,29 @@ export class GameComponent implements OnInit {
   }
 
   clickRock() {
-    this.currentHumanHitImage = this.imageServiceService.rockImage;
-    this.humanHit(0);
+    if (this.gameProcessStatus === GameProcessStatus.WaitingForHumanHit) {  // filter quick human clicks
+      this.currentHumanHitImage = this.imageServiceService.rockImage;
+      this.humanHit(0);
+    }
   }
 
   clickPaper() {
-    this.currentHumanHitImage = this.imageServiceService.paperImage;
-    this.humanHit(1);
+    if (this.gameProcessStatus === GameProcessStatus.WaitingForHumanHit) {  // filter quick human clicks
+      this.currentHumanHitImage = this.imageServiceService.paperImage;
+      this.humanHit(1);
+    }
   }
 
   clickScissors() {
-    this.currentHumanHitImage = this.imageServiceService.scissorsImage;
-    this.humanHit(2);
+    if (this.gameProcessStatus === GameProcessStatus.WaitingForHumanHit) {  // filter quick human clicks
+      this.currentHumanHitImage = this.imageServiceService.scissorsImage;
+      this.humanHit(2);
+    }
   }
 
   humanHit(hit: number) {
-    this.stopInterval();
+    this.backgroundColor = 'white';
+    this.gameProcessStatus = GameProcessStatus.WaitingForAIHit;
     this.hitIndex++;
     this.currentHit = hit;
     this.rpsServiceService.humanHits.push(hit);
@@ -298,17 +314,29 @@ export class GameComponent implements OnInit {
     }
   }
 
-  getBackgroundColor(): string {
+  setBackgroundColor() {
     if (this.getResult() === 'DRAW') {
-      return 'yellow';
+      this.backgroundColor = 'yellow';
     } else if (this.getResult() === 'WIN') {
-      return 'green';
+      this.backgroundColor =  'green';
     } else if (this.getResult() === 'LOSE') {
-      return 'red';
+      this.backgroundColor = 'red';
     } else {
-      return '';
+      this.backgroundColor = 'white';
     }
   }
+
+  // getBackgroundColor(): string {
+  //   if (this.getResult() === 'DRAW') {
+  //     return 'yellow';
+  //   } else if (this.getResult() === 'WIN') {
+  //     return 'green';
+  //   } else if (this.getResult() === 'LOSE') {
+  //     return 'red';
+  //   } else {
+  //     return '';
+  //   }
+  // }
 
   reset() {
     this.currentHit = -1;
@@ -383,18 +411,21 @@ export class GameComponent implements OnInit {
         mode: config.mode
       }
     ).subscribe(
-      data => {
+      data => {   // process response from AI :
         console.log(data);
         this.currentAiHit = data.hit;
         this.rpsServiceService.aiHits.push(data.hit);
 
         this.setAIImage();
+        this.setBackgroundColor();
         this.saveResult();
 
         this.barChartData[0].data[0] = this.rpsServiceService.calculateHumanWins();
         this.barChartData[1].data[0] = this.rpsServiceService.calculateDraw();
         this.barChartData[2].data[0] = this.rpsServiceService.calculateHumanLost();
         this.chart.chart.update();
+
+        this.gameProcessStatus = GameProcessStatus.WaitingForHumanHit;    // AI finished, now the human can make a hit
 
         // check if the game finish:
         if (this.hitIndex === this.getMaxHits()) {

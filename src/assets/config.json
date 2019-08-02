@@ -1,12 +1,12 @@
 {
-  "gameLength": 32,
+  "gameLength": 150,
   "url": "http://127.0.0.1:5000/sendStatus",
   "gamepad": {
     "on": true,
     "url": "http://worldtimeapi.org/api/timezone/Europe/Berlin",
     "urlGetHit": "http://localhost:3000/msgRPS/getGamepadHit",
     "urlClear": "http://localhost:3000/msgRPS/clearGamepadHit",
-    "requestFrequence": 500
+    "requestFrequence": 1500
   },
   "mode": "training"
 }
