@@ -218,7 +218,7 @@ export class GameComponent implements OnInit {
 
   clearGamePad() {
     this.gamepadServiceService.clearGamepad().subscribe(gamepadHit => {
-      console.log('clear gamepad:');
+      console.log('clear gamepad.');
     });
   }
 
@@ -226,26 +226,30 @@ export class GameComponent implements OnInit {
     // this.start_count += 1;
     // if(this.start_count == 1){
     this.intervalGamePad = setInterval( () => {
-      this.gamepadServiceService.getGamepadHit().subscribe(gamepadHit => {
-        // console.log('Gamepad:');
-        // console.log('Timestamp: ' + gamepadHit.timestamp);
-        // console.log('Hit: ' + gamepadHit.hit);
-        if (this.gamepadHit.timestamp !== gamepadHit.timestamp) {
-          this.gamepadHit = gamepadHit;   // save last game pad hit
 
-          switch (gamepadHit.hit) {
-            case 0:
-              this.clickRock();
-              break;
-            case 1:
-              this.clickPaper();
-              break;
-            case 2:
-              this.clickScissors();
-              break;
+      if (this.gameProcessStatus === GameProcessStatus.WaitingForHumanHit) {  // filter quick human clicks
+        this.gamepadServiceService.getGamepadHit().subscribe(gamepadHit => {
+            // console.log('Gamepad:');
+            // console.log('Timestamp: ' + gamepadHit.timestamp);
+            // console.log('Hit: ' + gamepadHit.hit);
+            if (this.gamepadHit.timestamp !== gamepadHit.timestamp) {
+              this.gamepadHit = gamepadHit;   // save last game pad hit
+
+              switch (gamepadHit.hit) {
+                case 0:
+                  this.clickRock();
+                  break;
+                case 1:
+                  this.clickPaper();
+                  break;
+                case 2:
+                  this.clickScissors();
+                  break;
+              }
+            }
           }
-        }
-      });
+        );  // subscribe
+      }
     }, config.gamepad.requestFrequence);
     // }
   }
