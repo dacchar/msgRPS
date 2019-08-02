@@ -1,8 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
+
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Label } from 'ng2-charts';
 import { BaseChartDirective } from 'ng2-charts';
+import * as pluginDataLabels from 'chartjs-plugin-datalabels';
+
 import {RpsServiceService} from '../rps-service.service';
 import {MLServiceService} from '../mlservice.service';
 import {ImageServiceService} from '../image-service.service';
@@ -51,36 +54,70 @@ export class GameComponent implements OnInit {
 
   gameProcessStatus: GameProcessStatus = GameProcessStatus.WaitingForHumanHit;
 
-  @ViewChild(BaseChartDirective)
-  public chart: BaseChartDirective;
+  // @ViewChild(BaseChartDirective)
+  // public chart: BaseChartDirective;
+  //
+  // public barChartOptions: ChartOptions = {
+  //   responsive: true,
+  //   scales : {
+  //     yAxes: [{
+  //       ticks: {
+  //         beginAtZero: true,
+  //         stepSize: config.gameLength / 2,
+  //         max : config.gameLength,
+  //       }
+  //     }]
+  //   }
+  // };
+  // public barChartLabels: Label[] = ['Intermediary result'];
+  // public barChartType: ChartType = 'bar';
+  // public barChartLegend = true;
+  // public barChartPlugins = [];
+  // public chartColors = [
+  //   { backgroundColor: '#008800' },
+  //   { backgroundColor: '#fcfc40' },
+  //   { backgroundColor: '#ff0000' }
+  // ];
+  //
+  // public barChartData: ChartDataSets[] = [
+  //   { data: [0], label: 'Win' },
+  //   { data: [0], label: 'Draw' },
+  //   { data: [0], label: 'Lost' }
+  // ];
 
-  public barChartOptions: ChartOptions = {
+
+
+  // Pie
+
+   @ViewChild(BaseChartDirective)
+  public pieChart: BaseChartDirective;
+
+  public pieChartOptions: ChartOptions = {
     responsive: true,
-    scales : {
-      yAxes: [{
-        ticks: {
-          beginAtZero: true,
-          stepSize: config.gameLength / 2,
-          max : config.gameLength,
-        }
-      }]
+    legend: {
+      position: 'bottom'
+    },
+    plugins: {
+      datalabels: {
+        // formatter: (value, ctx) => {
+        //   const label = ctx.chart.data.labels[ctx.dataIndex];
+        //   return label;
+        // },
+      },
     }
   };
-  public barChartLabels: Label[] = ['Intermediary result'];
-  public barChartType: ChartType = 'bar';
-  public barChartLegend = true;
-  public barChartPlugins = [];
-  public chartColors = [
-    { backgroundColor: '#008800' },
-    { backgroundColor: '#fcfc40' },
-    { backgroundColor: '#ff0000' }
+  public pieChartLabels: Label[] = ['?', 'Win', 'Draw', 'Lost'];
+  public pieChartData: number[] = [config.gameLength, 0, 0, 0];
+  public pieChartType: ChartType = 'pie';
+  public pieChartLegend = true;
+  public pieChartPlugins = [pluginDataLabels];
+  public pieChartColors = [
+    {
+      backgroundColor: ['lightgray', 'lightgreen', 'yellow', 'red'],
+    },
   ];
+  // // pie end
 
-  public barChartData: ChartDataSets[] = [
-    { data: [0], label: 'Win' },
-    { data: [0], label: 'Draw' },
-    { data: [0], label: 'Lost' }
-  ];
 
   constructor(
     private rpsServiceService: RpsServiceService,
@@ -420,10 +457,16 @@ export class GameComponent implements OnInit {
         this.setBackgroundColor();
         this.saveResult();
 
-        this.barChartData[0].data[0] = this.rpsServiceService.calculateHumanWins();
-        this.barChartData[1].data[0] = this.rpsServiceService.calculateDraw();
-        this.barChartData[2].data[0] = this.rpsServiceService.calculateHumanLost();
-        this.chart.chart.update();
+        // this.barChartData[0].data[0] = this.rpsServiceService.calculateHumanWins();
+        // this.barChartData[1].data[0] = this.rpsServiceService.calculateDraw();
+        // this.barChartData[2].data[0] = this.rpsServiceService.calculateHumanLost();
+        // this.chart.chart.update();
+
+        this.pieChartData[0] = config.gameLength - this.hitIndex;
+        this.pieChartData[1] = this.rpsServiceService.calculateHumanWins();
+        this.pieChartData[2] = this.rpsServiceService.calculateDraw();
+        this.pieChartData[3] = this.rpsServiceService.calculateHumanLost();
+        this.pieChart.chart.update();
 
         this.gameProcessStatus = GameProcessStatus.WaitingForHumanHit;    // AI finished, now the human can make a hit
 

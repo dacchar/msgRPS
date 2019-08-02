@@ -20,25 +20,23 @@
           -->
             <div style="display: block; height:12vh; width:12vw">
               <canvas baseChart
-                      [datasets]="barChartData"
-                      [labels]="barChartLabels"
-                      [options]="barChartOptions"
-                      [plugins]="barChartPlugins"
-                      [legend]="barChartLegend"
-                      [colors]="chartColors"
-                      [chartType]="barChartType">
+                      [data]="pieChartData"
+                      [labels]="pieChartLabels"
+                      [chartType]="pieChartType"
+                      [options]="pieChartOptions"
+                      [plugins]="pieChartPlugins"
+                      [colors]="pieChartColors"
+                      [legend]="pieChartLegend">
               </canvas>
             </div>
           </div>
         </div>
       </div>
 
+      <!--
       <div class="col justify-content-right">
         <div>
           <div align="right">
-            <!--
-          <div class="chart-container" style="position: relative; height:15vh; width:15vw">
-          -->
             <div style="display: block; height:12vh; width:12vw">
               <canvas baseChart
                       [datasets]="barChartData"
@@ -53,6 +51,7 @@
           </div>
         </div>
       </div>
+      -->
 
     </div>
 
@@ -176,9 +175,25 @@
     <mat-progress-bar mode="determinate" value="{{progressBarValue}}"></mat-progress-bar>
   </div>
 
-
+  <!--
   <div class="row mt-5">
     <button mat-raised-button color="primary" (click)="nextPage()">To start</button>
+  </div>
+  -->
+
+  <br>
+
+  <div class="row">
+    <div class="col">
+      <button mat-raised-button color="primary" (click)="nextPage()">To start</button>
+    </div>
+
+    <div class="col">
+      <div align="right">
+        <div *ngIf="gameProcessStatus === 1">Please make your hit!</div>
+        <div *ngIf="gameProcessStatus === 2">Please wait for the AI's hit...</div>
+      </div>
+    </div>
   </div>
 
 </div>
